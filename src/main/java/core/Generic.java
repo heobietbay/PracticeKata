@@ -20,6 +20,73 @@ public class Generic {
         System.out.println();
 
         boundedTypeAndInterface();
+
+        System.out.println();
+
+        boundedTypeWildCard();
+    }
+
+    private static void boundedTypeWildCard() {
+        BoundedTypeWildCard<Number> typeNumber = new BoundedTypeWildCard<>(new Number[]{ 1,2,3,4,5,6.0,7.0f});
+        for(Number number : typeNumber.numberArray)
+        {
+            System.out.print(number + " ");
+        }
+        System.out.println("Average is: " + typeNumber.average());
+
+        BoundedTypeWildCard<Integer> typeInteger = new BoundedTypeWildCard<>(new Integer[]{1,2,3,4,5,6,7});
+        for(Integer integer : typeInteger.numberArray)
+        {
+            System.out.print(integer + " ");
+        }
+        System.out.println("Average is: " + typeInteger.average());
+
+        /* This does not compile
+        System.out.println("They have same avg value: " +  typeNumber.sameAvgWithoutWildCard(typeInteger));
+        */
+
+        // This does compile
+        System.out.println("They have same avg value: " +  typeInteger.sameAvgWithoutWildCard(typeInteger));
+
+        // and this compile as well
+        System.out.println("They have same avg value: " +  typeNumber.sameAvg(typeInteger));
+
+    }
+
+    /**
+     * This to demonstrate the use of wild card (?).
+     * Note that <T extends Number> needs to be declared on BoundedTypeWildCard
+     * and then used in  BoundedType<T>.
+     * @param <T>
+     */
+    static class BoundedTypeWildCard<T extends Number> extends BoundedType<T>
+    {
+        /**
+         * Notice the use of <?>. This allows any two BoundedTypeWildCard objects to have their
+         * averages compared. So an Integer bounded object can compare to a Double bounded object.
+         * Note that declare BoundedTypeWildCard<?> is same as BoundedTypeWildCard.
+         * Will address this further.
+         * @param boundedTypeWildCard
+         * @return true or false
+         */
+        boolean sameAvg(BoundedTypeWildCard<?> boundedTypeWildCard)
+        {
+            return this.average() == boundedTypeWildCard.average();
+        }
+        /**
+         * This works only if the passed in boundedTypeWildCard is same type parameter.
+         * For ex, if this bound to Integer, can only call {@linkplain BoundedTypeWildCard#sameAvgWithoutWildCard }
+         * on same object that bound to Integer.
+         * @param boundedTypeWildCard
+         * @return true or false
+         */
+        boolean sameAvgWithoutWildCard(BoundedTypeWildCard<T> boundedTypeWildCard)
+        {
+            return this.average() == boundedTypeWildCard.average();
+        }
+        BoundedTypeWildCard(T[] o) {
+            super(o);
+        }
     }
 
     private static void boundedTypeAndInterface() {

@@ -1,16 +1,72 @@
 package core;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * My replica of {@link Comparable}.
- * Note that its bounded to a type <T>, and its method {@linkplain MyComparable#compareTo(Object)}
+ * My sort-of replica of {@link Comparable}.
+ * Note that its bounded to a type <T>, and its method {@linkplain MyEqual#deepEquals(Object)}
  * does not need to have <T> as prefix.
+ * If implementation class implement MyEqual and bound to a type, it requires implementation class
+ * - say IC - to provide deepEquals with another IC instance.
  * @param <T> anyObject.
  */
-interface MyComparable<T> {
-   int compareTo(T anotherObj);
+interface MyEqual<T> {
+   boolean deepEquals(T anotherObj);
+
+    /**
+     * Sample impl. Note that MyEquals bounds to this class (DefaultImpl)
+     */
+   class DefaultImpl implements MyEqual<DefaultImpl>{
+
+        /**
+         * Implementation. Thanks to MyEquals bound to DefaultImpl,
+         * anotherObj must be instance of DefaultImpl.
+         * @param anotherObj other instance of same type.
+         * @return true or false.
+         */
+       @Override
+       public boolean deepEquals(DefaultImpl anotherObj) {
+           return Objects.deepEquals(this, anotherObj);
+       }
+
+       /* This will NOT compile
+
+       public boolean deepEquals(Object anotherObj) {
+           return Objects.deepEquals(this,anotherObj);
+       }
+       */
+
+        public static void main(String[] args) {
+            System.out.println(new DefaultImpl().deepEquals(new DefaultImpl()));
+        }
+   }
+
+    /**
+     * Another implementation. Note that MyEqual does not bound to any type.
+     * So default bounded type would be Object.
+     * Lets analyze {@link Impl1#deepEquals} signature this time.
+     */
+   class Impl1 implements MyEqual {
+
+        /**
+         * We can see that anotherObj can only be Object, which is not ideal.
+         * @param anotherObj
+         * @return
+         */
+       @Override
+       public boolean deepEquals(Object anotherObj) {
+           return false;
+       }
+
+        /**
+         This will NOT compile
+
+         public boolean deepEquals(Impl1 anotherObj)
+         */
+    }
 }
+
 
 /**
  * This demonstrates that it is possible for constructors to be generic, even if their class is not.

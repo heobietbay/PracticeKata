@@ -1,5 +1,45 @@
 package core;
 
+import java.util.List;
+
+/**
+ * My replica of {@link Comparable}.
+ * Note that its bounded to a type <T>, and its method {@linkplain MyComparable#compareTo(Object)}
+ * does not need to have <T> as prefix.
+ * @param <T> anyObject.
+ */
+interface MyComparable<T> {
+   int compareTo(T anotherObj);
+}
+
+/**
+ * This demonstrates that it is possible for constructors to be generic, even if their class is not.
+ */
+class GenericConstructor {
+
+    /**
+     * Syntax must be <T> (or <T extends SomeType>) constructor.
+     * @param value
+     * @param <T>
+     */
+    public <T extends Number> GenericConstructor(T value) {
+        this.value = value.doubleValue();
+    }
+
+    void showValue()
+    {
+        System.out.println(value);
+    }
+    double value;
+
+    public static void main(String[] args) {
+        new GenericConstructor(6).showValue();
+        new GenericConstructor(7.0).showValue();
+        new GenericConstructor(8.0f).showValue();
+    }
+}
+
+
 /**
  * This aims to demonstrate Generic syntax, usage of many of
  * "Generic" shapes and forms.
@@ -24,6 +64,9 @@ public class Generic {
         System.out.println();
 
         boundedTypeWildCard();
+
+        System.out.println();
+
     }
 
     private static void boundedTypeWildCard() {
@@ -54,7 +97,18 @@ public class Generic {
     }
 
     /**
-     * This to demonstrate the use of wild card (?).
+     * This to demonstrate the usage of "bounded wildcard argument".
+     * With this, we can always make sure that the input object has "run" method.
+     */
+    static void boundedWildCardArgument(List<BoundedTypeAndInterface<? extends BoundedTypeAndInterface.Teen>> participantList)
+    {
+        System.out.println("This is the list of participant of this year running context.");
+
+        participantList.forEach( p -> p.person.run());
+    }
+
+    /**
+     * This to demonstrate the use of wildcard (?).
      * Note that <T extends Number> needs to be declared on BoundedTypeWildCard
      * and then used in  BoundedType<T>.
      * @param <T>
@@ -125,7 +179,7 @@ public class Generic {
 
         static class Person
         {
-
+            String name;
         }
 
         static class Baby extends Person
@@ -137,8 +191,10 @@ public class Generic {
 
             @Override
             public void run() {
-                System.out.println("Since I am a teen, I can run fast.");
+                System.out.println("Hi, I'm " + name + ". " + "I can run " + speed + " km/hour.");
             }
+
+            int speed;
         }
     }
 

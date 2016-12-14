@@ -8,7 +8,119 @@ public class Generic {
 
     public static void main(String[] args) {
         form1();
+
+        System.out.println();
+
         form2();
+
+        System.out.println();
+
+        boundedTypeNumber();
+
+        System.out.println();
+
+        boundedTypeAndInterface();
+    }
+
+    private static void boundedTypeAndInterface() {
+
+        BoundedTypeAndInterface<BoundedTypeAndInterface.Teen> boundedTypeTeen = new BoundedTypeAndInterface<>(new BoundedTypeAndInterface.Teen());
+        boundedTypeTeen.showType();
+
+        /* This wont compile, since Person itself does not implement runnable
+
+        BoundedTypeAndInterface<BoundedTypeAndInterface.Person> boundedTypePerson = new BoundedTypeAndInterface<>(new BoundedTypeAndInterface.Person());
+        boundedTypePerson.showType();
+
+        BoundedTypeAndInterface<BoundedTypeAndInterface.Baby> boundedTypeBaby = new BoundedTypeAndInterface<>(new BoundedTypeAndInterface.Baby());
+        boundedTypeBaby.showType();
+        */
+    }
+
+    /**
+     * This is to demonstrate that generic can take a bounded type
+     * that extends a type, and that implements an interface.
+     * @param <T> is a subclass of Person, and must implement Runnable.
+     */
+    static class BoundedTypeAndInterface< T extends BoundedTypeAndInterface.Person & Runnable >
+    {
+        void showType()
+        {
+            System.out.println(person.getClass().getName());
+            person.run();
+        }
+
+        BoundedTypeAndInterface(T person) {
+            this.person = person;
+        }
+
+        T person;
+
+        static class Person
+        {
+
+        }
+
+        static class Baby extends Person
+        {
+
+        }
+
+        static class Teen extends Person implements Runnable{
+
+            @Override
+            public void run() {
+                System.out.println("Since I am a teen, I can run fast.");
+            }
+        }
+    }
+
+    private static void boundedTypeNumber() {
+        BoundedType<Number> typeNumber = new BoundedType<>(new Number[]{ 1,2,3,4,5,6.0,7.0f});
+        for(Number number : typeNumber.numberArray)
+        {
+            System.out.print(number + " ");
+        }
+        System.out.println("Average is: " + typeNumber.average());
+
+        // Notice how this only accepts array of integer.
+        BoundedType<Integer> typeInteger = new BoundedType<>(new Integer[]{1,2,3,4,5,6,7});
+        for(Integer integer : typeInteger.numberArray)
+        {
+            System.out.print(integer + " ");
+        }
+        System.out.println("Average is: " + typeInteger.average());
+
+        // This won't compile because String is not a
+        // subclass of Number.
+        // String strs[] = { "1", "2", "3", "4", "5" };
+        // BoundedType<String> strob = new BoundedType<String>(strs);
+        // double x = strob.average();
+        // System.out.println("strob average is " + v);
+    }
+
+    /**
+     * This is to demonstrate that we can narrow down the type of parameter passed in.
+     * @param <T> T must be either Number, or a class derived from Number.
+     */
+    static class BoundedType<T extends Number>
+    {
+        double average()
+        {
+            double avg = 0.0;
+            for(T number : numberArray)
+            {
+                // since all types which derived from Number inherit its methods, this will compile.
+                avg = avg + number.doubleValue();
+            }
+            return avg/numberArray.length;
+        }
+        BoundedType(T[] o)
+        {
+            this.numberArray = o;
+        }
+
+        T[] numberArray;
     }
 
     private static void form2() {
@@ -59,8 +171,6 @@ public class Generic {
         // Get the value in f1. Notice that no cast is needed.
         int v = integerForm1.getAnyObject();
         System.out.println("value: " + v);
-
-        System.out.println();
 
         // Create a Form1 object for Strings.
         Form1<String> stringForm1 = new Form1<String>("Generics Test");

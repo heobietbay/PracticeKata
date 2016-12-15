@@ -12,12 +12,12 @@ import java.util.Objects;
  * @param <T> anyObject.
  */
 interface MyEqual<T> {
-   boolean deepEquals(T anotherObj);
+    boolean deepEquals(T anotherObj);
 
     /**
      * Sample impl. Note that MyEquals bounds to this class (DefaultImpl)
      */
-   class DefaultImpl implements MyEqual<DefaultImpl>{
+    class DefaultImpl implements MyEqual<DefaultImpl>{
 
         /**
          * Implementation. Thanks to MyEquals bound to DefaultImpl,
@@ -25,10 +25,10 @@ interface MyEqual<T> {
          * @param anotherObj other instance of same type.
          * @return true or false.
          */
-       @Override
-       public boolean deepEquals(DefaultImpl anotherObj) {
-           return Objects.deepEquals(this, anotherObj);
-       }
+        @Override
+        public boolean deepEquals(DefaultImpl anotherObj) {
+            return Objects.deepEquals(this, anotherObj);
+        }
 
        /* This will NOT compile
 
@@ -40,7 +40,7 @@ interface MyEqual<T> {
         public static void main(String[] args) {
             System.out.println(new DefaultImpl().deepEquals(new DefaultImpl()));
         }
-   }
+    }
 
     /**
      * Another implementation. Note that MyEqual does not bound to any type.

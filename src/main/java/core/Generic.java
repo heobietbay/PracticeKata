@@ -7,8 +7,8 @@ import java.util.Objects;
  * My sort-of replica of {@link Comparable}.
  * Note that its bounded to a type <T>, and its method {@linkplain MyEqual#deepEquals(Object)}
  * does not need to have <T> as prefix.
- * If implementation class implement MyEqual and bound to a type, it requires implementation class
- * - say IC - to provide deepEquals with another IC instance.
+ * If implementation class implement MyEqual and bound to that class' type, it requires
+ * implementation class - say IC - to provide deepEquals with another IC instance.
  * @param <T> anyObject.
  */
 interface MyEqual<T> {
@@ -47,23 +47,36 @@ interface MyEqual<T> {
      * So default bounded type would be Object.
      * Lets analyze {@link Impl1#deepEquals} signature this time.
      */
-   class Impl1 implements MyEqual {
+    class Impl1 implements MyEqual {
 
         /**
          * We can see that anotherObj can only be Object, which is not ideal.
          * @param anotherObj
          * @return
          */
-       @Override
-       public boolean deepEquals(Object anotherObj) {
-           return false;
-       }
+        @Override
+        public boolean deepEquals(Object anotherObj) {
+            return false;
+        }
 
         /**
          This will NOT compile
 
          public boolean deepEquals(Impl1 anotherObj)
          */
+    }
+
+    /**
+     * Another implementation. This demonstrate that MyEqual can bound
+     * to other type - this case {@link Integer} .
+     * Not necessarily the implementation class type.
+     */
+    class Impl2 implements MyEqual<Integer> {
+
+        @Override
+        public boolean deepEquals(Integer anotherObj) {
+            return false;
+        }
     }
 }
 
@@ -150,6 +163,10 @@ public class Generic {
         // and this compile as well
         System.out.println("They have same avg value: " +  typeNumber.sameAvg(typeInteger));
 
+        // Demonstrate instance of usage:
+        System.out.println("typeNumber is an instance of BoundedTypeWildCard: " + (typeNumber instanceof BoundedTypeWildCard));
+        System.out.println("typeNumber is an instance of BoundedTypeWildCard<?>: " + (typeNumber instanceof BoundedTypeWildCard<?>));
+        System.out.println("This check is INVALID, does NOT compile: typeNumber instanceof BoundedTypeWildCard<Number> - because generic type info does not exist at run time");
     }
 
     /**

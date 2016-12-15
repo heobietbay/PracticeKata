@@ -1,9 +1,6 @@
 package easy;
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
+
+import java.util.Scanner;
 
 /**
  * Created by Administrator on 9/22/2016.

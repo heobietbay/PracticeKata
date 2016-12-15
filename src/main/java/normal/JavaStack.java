@@ -107,7 +107,7 @@ public class JavaStack {
             //Complete the code
             boolean isValid = isValid(input);
 
-            System.out.println(isValid ? true : false);
+            System.out.println(isValid);
         }
 
     }

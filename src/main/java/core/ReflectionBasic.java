@@ -34,17 +34,17 @@ class Mock{
 public class ReflectionBasic {
 
     void callSetName(Object target, Method methodSet, Method methodGet) throws InvocationTargetException, IllegalAccessException {
-       synchronized (this)
-       {
-           System.out.println(Thread.currentThread().getName());
-           String name = (String) methodGet.invoke(target);
-           if(name == "123")
-           {
-               System.out.println("No need to set.");
-               return;
-           }
-           methodSet.invoke(target,"123");
-       }
+        synchronized (this)
+        {
+            System.out.println(Thread.currentThread().getName());
+            String name = (String) methodGet.invoke(target);
+            if(name == "123")
+            {
+                System.out.println("No need to set.");
+                return;
+            }
+            methodSet.invoke(target,"123");
+        }
     }
     public static void main(String[] args) {
         final ReflectionBasic reflectionBasic = new ReflectionBasic();

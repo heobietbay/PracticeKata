@@ -84,7 +84,61 @@ public class FirstSumPairs {
         // in this code, do a sort to make sure
         result = binarySearch(inputArr,sum);
 
+
+        // approach 3: using "narrowSearch" if array is sorted
+        // in this code, do a sort to make sure
+        result = narrowSearch(inputArr,sum);
         System.out.println("(" + result[0] + ", " + result[1] + ")");
+    }
+
+    /**
+     * This only applies for sorted array.
+     * The algo is another variation of the binary search.
+     * It works by summing the first (low) and last(hi) item in the array.
+     * If the total equals to the sum -> return low and hi.
+     * If not, repeat below steps until low meets hi.
+     *   - If total > sum -> move back from the end -> hi--;
+     *   - Else (total < sum) -> move forth from the start -> low++;
+     *
+     * @param inputArr
+     * @param sum
+     * @return
+     */
+    private static int[] narrowSearch(int[] inputArr, int sum) {
+
+        int[] result = new int[2];
+
+        Arrays.sort(inputArr);
+        System.out.println("List after sorted:");
+        for(int e : inputArr)
+        {
+            System.out.print(e + " ");
+        }
+        System.out.println();
+        int low = 0;
+        int hi = inputArr.length - 1;
+        boolean found = false;
+        while(!found && low != hi)
+        {
+            int ai = inputArr[low];
+            int aj = inputArr[hi];
+            if(ai + aj == sum)
+            {
+                result[0] = low;
+                result[1] = hi;
+                found = true;
+            }
+            else if( ai + aj > sum)
+            {
+                hi--;
+            }
+            else
+            {
+                low++;
+            }
+        }
+
+        return result;
     }
 
     /**

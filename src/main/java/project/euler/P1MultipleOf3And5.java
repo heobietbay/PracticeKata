@@ -19,9 +19,41 @@ public class P1MultipleOf3And5 {
         return res;
     }
 
+    static Integer solveFaster(Integer inp)
+    {
+        Integer res = 0;
+
+        // calculate number % 3 == 0
+        int start = 3;
+        while( start < inp )
+        {
+            res += start;
+            start += 3;
+        }
+
+        // calculate number % 5 == 0
+        start = 5;
+        while( start < inp )
+        {
+            res += start;
+            start += 5;
+        }
+
+        // minus the common number (they've been added twice), which is x % 15 == 0
+        start = 15;
+        while( start < inp )
+        {
+            res -= start;
+            start += 15;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        System.out.println(solve(INPUT));
         System.out.println(solve(10));
+        System.out.println(solveFaster(10));
+        System.out.println(solve(INPUT));
+        System.out.println(solveFaster(INPUT));
     }
 
     static final int INPUT = 1000;

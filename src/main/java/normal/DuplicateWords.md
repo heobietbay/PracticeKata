@@ -44,17 +44,17 @@ Output Format
     - Goodbye bye world
     - Sam went to his business
     - Reya is the best player in eye game
-    in inthe
+    - in inthe
     - Hello Ab
 
 * Explanation
 
-    We remove the second occurrence of bye and the second and third occurrences of world
+    - We remove the second occurrence of bye and the second and third occurrences of world
     from Goodbye bye bye world world world to get Goodbye bye world.
-    We remove the second occurrence of went and the second and third occurrences of to
+    - We remove the second occurrence of went and the second and third occurrences of to
     from Sam went went to to to his business to get Sam went to his business.
-    We remove the second occurrence of is, the second occurrence of the, and the second occurrence of eye
+    - We remove the second occurrence of is, the second occurrence of the, and the second occurrence of eye
     from Reya is is the the best player in eye eye game to get Reya is the best player in eye game.
-    The sentence in inthe has no repeated words, so we do not modify it.
-    We remove the second occurrence of ab from Hello hello Ab aB to get Hello Ab. It's important to note that our matching
+    - The sentence in inthe has no repeated words, so we do not modify it.
+    - We remove the second occurrence of ab from Hello hello Ab aB to get Hello Ab. It's important to note that our matching
     is case-insensitive, and we specifically retained the first occurrence of the matched word in our final string.

@@ -1,10 +1,6 @@
 package easy;
 
-import java.io.*;
-import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
+import java.util.Scanner;
 
 public class NegativeSubArray {
 
@@ -18,5 +14,27 @@ public class NegativeSubArray {
         {
             numArray[i] = in.nextInt();
         }
+        System.out.println(countNegativeSubArray(numArray,elementCount));
+    }
+
+    private static int countNegativeSubArray(int[] numArray, int elementCount) {
+        int count = 0;
+        for(int i = 0 ; i < elementCount; i++)
+        {
+            int sum = numArray[i];
+            // count the individual
+            if(sum < 0)
+            {
+                count++;
+            }
+            for(int j = i+1; j < elementCount ; j++)
+            {
+                int nextEl = numArray[j];
+                sum += nextEl;
+                if(sum < 0)
+                    count++;
+            }
+        }
+        return count;
     }
 }

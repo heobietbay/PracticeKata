@@ -8,7 +8,45 @@ import java.util.Scanner;
 public class Array1DPart2 {
 
     public static boolean canWin(int leap, int[] game) {
-        return false;
+        int len = game.length;
+        int currentIdx = 0;
+        if( currentIdx + leap > len)
+        {
+            return true;
+        }
+        boolean canWin = true;
+        // keep track of the last pos we step back
+        int stepBackPos = -1;
+        while (canWin && currentIdx + leap < len)
+        {
+            if(game[currentIdx + leap] == 0)
+            {
+                currentIdx = currentIdx + leap;
+            }
+            else if(game[currentIdx + 1] == 0)
+            {
+                currentIdx = currentIdx + 1;
+            }
+            // cannot move forth, have to step back
+            else if( currentIdx != 0 && game[currentIdx - 1] == 0)
+            {
+                currentIdx = currentIdx - 1;
+                // if we are stepping back and forth, it means we cannot move fw, so we lose
+                if(currentIdx == stepBackPos)
+                {
+                    canWin = false;
+                }
+                else
+                {
+                    stepBackPos = currentIdx;
+                }
+            }
+            else
+            {
+                canWin = false;
+            }
+        }
+        return canWin;
     }
 
     public static void main(String[] args) {

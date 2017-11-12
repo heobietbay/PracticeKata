@@ -3,50 +3,28 @@ package normal;
 import java.util.Scanner;
 
 /**
- * Created by khoa on 2/8/2016.
+ * This is a solution I got from other people. I need to study depth-first search (DFS).
  */
 public class Array1DPart2 {
 
-    public static boolean canWin(int leap, int[] game) {
-        int len = game.length;
-        int currentIdx = 0;
-        if( currentIdx + leap > len)
-        {
+    /* Basically a depth-first search (DFS).
+      Marks each array value as 1 when visiting (Side-effect: alters array) */
+    private static boolean canWin(int[] array, int m, int i) {
+        /* Base Cases */
+        if (i < 0 || array[i] == 1) {
+            return false;
+        } else if (i + 1 >= array.length || i + m >= array.length) {
             return true;
         }
-        boolean canWin = true;
-        // keep track of the last pos we step back
-        int stepBackPos = -1;
-        while (canWin && currentIdx + leap < len)
-        {
-            if(game[currentIdx + leap] == 0)
-            {
-                currentIdx = currentIdx + leap;
-            }
-            else if(game[currentIdx + 1] == 0)
-            {
-                currentIdx = currentIdx + 1;
-            }
-            // cannot move forth, have to step back
-            else if( currentIdx != 0 && game[currentIdx - 1] == 0)
-            {
-                currentIdx = currentIdx - 1;
-                // if we are stepping back and forth, it means we cannot move fw, so we lose
-                if(currentIdx == stepBackPos)
-                {
-                    canWin = false;
-                }
-                else
-                {
-                    stepBackPos = currentIdx;
-                }
-            }
-            else
-            {
-                canWin = false;
-            }
-        }
-        return canWin;
+
+        array[i] = 1; // marks as visited
+
+        /* Recursive Cases (Tries +m first to try to finish game quickly) */
+        return canWin(array, m, i + m) ||
+                canWin(array, m, i + 1) ||
+                canWin(array, m, i - 1);
+
+        //TODO: Study depth-first search (DFS).
     }
 
     public static void main(String[] args) {
@@ -61,7 +39,7 @@ public class Array1DPart2 {
                 game[i] = scan.nextInt();
             }
 
-            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+            System.out.println( (canWin(game,leap,0)) ? "YES" : "NO" );
         }
         scan.close();
     }

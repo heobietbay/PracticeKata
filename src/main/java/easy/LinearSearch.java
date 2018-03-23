@@ -9,6 +9,15 @@ public class LinearSearch {
         System.out.println(search(SAMPLE_2,13));
     }
 
+    /**
+     * This search function assume we always find the desired item in a list.
+     * By placing it at the end of the arr.
+     * This way, we always get the item index, and then we check if that idx satisfy our condition.
+     * Doing this way eliminates the need to check every time we loop when finding item.
+     * @param arr input array
+     * @param inp item to find
+     * @return idx of the item, or -1 if not found
+     */
     static int search(int[] arr, int inp) {
 
         int last = arr[arr.length - 1];

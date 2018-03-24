@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Array1DPart2 {
 
     /* Basically a depth-first search (DFS).
-      Marks each array value as 1 when visiting (Side-effect: alters array) */
+      Marks each array key as 1 when visiting (Side-effect: alters array) */
     private static boolean canWin(int[] array, int m, int i) {
         /* Base Cases */
         if (i < 0 || array[i] == 1) {

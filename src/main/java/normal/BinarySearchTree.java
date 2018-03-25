@@ -1,5 +1,8 @@
 package normal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 
     public static void main(String[] args) {
@@ -52,13 +55,30 @@ public class BinarySearchTree<T extends Comparable<T>> {
         printAllNodes(rootNode);
     }
 
+    public List<TreeNode<T>> toList(){
+        return toList(rootNode);
+    }
+    private List<TreeNode<T>> toList(TreeNode node){
+        List<TreeNode<T>> res = new ArrayList<>();
+        if(node.getLeftNode() != null)
+        {
+            res.addAll(toList(node.getLeftNode()));
+        }
+        res.add(node);
+        if(node.getRightNode() != null)
+        {
+            res.addAll(toList(node.getRightNode()));
+        }
+        return res;
+    }
+
     public void printAllNodes(TreeNode node)
     {
         if(node.getLeftNode() != null)
         {
             printAllNodes(node.getLeftNode());
         }
-        System.out.print(node.getKey());
+        System.out.print(node.getKey()+"_");
         if(node.getRightNode() != null)
         {
             printAllNodes(node.getRightNode());

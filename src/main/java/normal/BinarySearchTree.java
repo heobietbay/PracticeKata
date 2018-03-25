@@ -3,13 +3,13 @@ package normal;
 public class BinarySearchTree<T extends Comparable<T>> {
 
     public static void main(String[] args) {
-        TreeNode<Integer> rootNode = new TreeNode<>(5);
+        TreeNode<Integer> rootNode = new TreeNode<>(1);
         rootNode.setValue("root");
 
         BinarySearchTree<Integer> tree = new BinarySearchTree<>(rootNode);
         tree.insertTreeNote(new TreeNode<>(7,"val7"));
         tree.insertTreeNote(new TreeNode<>(4,"val4"));
-        tree.insertTreeNote(new TreeNode<>(1,"val1"));
+        tree.insertTreeNote(new TreeNode<>(5,"val5"));
         tree.insertTreeNote(new TreeNode<>(9,"val9"));
         tree.insertTreeNote(new TreeNode<>(3,"val3"));
         TreeNode<Integer> treeNodeKey0 = new TreeNode<>(0, "val0");
@@ -19,6 +19,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         tree.insertTreeNote(treeNodeKey2);
 
         tree.printAllNodes();
+        System.out.println("\n Tree size: " + tree.size());
 
         // Should be able to find node with key=9
         TreeNode find9 = tree.find(9);
@@ -147,7 +148,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     {
         if(node == null)
             return 0;
-        return 1 + node.size();
+        return node.size();
     }
 
     public BinarySearchTree(TreeNode<T> rootNode) {

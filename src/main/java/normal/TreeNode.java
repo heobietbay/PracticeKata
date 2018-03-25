@@ -4,7 +4,7 @@ public class TreeNode<T extends Comparable<T>> {
 
     public int size()
     {
-        int res = 0;
+        int res = 1;
         if(leftNode != null )
         {
             res += leftNode.size();

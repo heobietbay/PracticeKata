@@ -39,9 +39,11 @@ public class DateDifference {
             System.err.println("Invalid input.");
             return;
         }
+
         String[] dateStrs = input.split(",");
         MyDate date1 = fromString(dateStrs[0].trim());
         MyDate date2 = fromString(dateStrs[1].trim());
+
         int daysDifference = calculateDifference(date1,date2);
 
         String outputTemplate = "{0}, {1}, {2}";
@@ -50,7 +52,7 @@ public class DateDifference {
     }
 
     private static boolean isInputValid(String input) {
-        return false;
+        return true;
     }
 
     private static String readInput() {
@@ -62,13 +64,46 @@ public class DateDifference {
     }
 
     private static MyDate fromString(String s) {
-        return null;
+        String[] parts = s.split(" ");
+        int day = Integer.valueOf(parts[0].trim());
+        int month = Integer.valueOf(parts[1].trim());
+        int year = Integer.valueOf(parts[2].trim());
+        return MyDate.build(day,month,year);
     }
 
-    class MyDate {
+    static class MyDate {
         int day;
         int month;
         int year;
+
+        static MyDate build(int day, int month, int year)
+        {
+            MyDate myDate = new MyDate();
+            myDate.day = day;
+            myDate.month = month;
+            myDate.year = year;
+            return myDate;
+        }
+
+        public boolean isLeap()
+        {
+            if(year %4 == 0)
+            {
+                if(year % 100 == 0){
+                    return year % 400 == 0;
+                }
+                else {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        MyDate()
+        {
+
+        }
 
         int toDays()
         {

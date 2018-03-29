@@ -60,7 +60,7 @@ public class DateDifference {
     }
 
     private static int calculateDifference(MyDate date1, MyDate date2) {
-        return 0;
+        return date1.calculateDayNumber() - date2.calculateDayNumber();
     }
 
     private static MyDate fromString(String s) {
@@ -104,10 +104,34 @@ public class DateDifference {
         {
 
         }
+        /*
+        Calculate date from day number
+    All division is integer division, operator % is modulus.
+    Given day number g, calculate year, month, and day:
 
-        int toDays()
+    function d(g)
+    y = (10000*g + 14780)/3652425
+    ddd = g - (365*y + y/4 - y/100 + y/400)
+    if (ddd < 0) then
+     y = y - 1
+     ddd = g - (365*y + y/4 - y/100 + y/400)
+     endif
+    mi = (100*ddd + 52)/3060
+    mm = (mi + 2)%12 + 1
+    y = y + (mi + 2)/12
+    dd = ddd - (mi*306 + 5)/10 + 1
+    return y, mm, dd
+        */
+
+        /**
+         * All division is integer division, operator % is modulus.
+         * @return
+         */
+        int calculateDayNumber()
         {
-            return 0;
+            int mm = (month + 9) % 12;
+            int yyyy = year - mm/10;
+            return 365*yyyy + yyyy/4 - yyyy/100 + yyyy/400 + (mm*306 + 5)/10 + ( day - 1 );
         }
 
         @Override

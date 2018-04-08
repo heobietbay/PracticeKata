@@ -9,10 +9,19 @@ public class LearnLambda {
     public static void main(String[] args) {
         //helloLambda();
         //moreBasicLambda();
+        comparatorWithLambda();
+    }
 
+    private static void comparatorWithLambda() {
         Function<Investor,String> lastNameExtractor = Investor::getLastName;
         MyStringComparator<Investor> investorMyStringComparator = MyStringComparator.getComparator(lastNameExtractor);
         Investor.INVESTOR_LIST.sort((o1, o2) -> investorMyStringComparator.compare(o1,o2));
+        Investor.INVESTOR_LIST.forEach( investor -> System.out.println(investor));
+
+        System.out.println("**** Demo sorting investor by age ****");
+        Function<Investor,Integer> ageExtractor = Investor::getAge;
+        MyGenericComparator<Investor> investorAgeComparator = MyGenericComparator.getComparator(ageExtractor);
+        Investor.INVESTOR_LIST.sort((o1, o2) -> investorAgeComparator.compare(o1,o2));
         Investor.INVESTOR_LIST.forEach( investor -> System.out.println(investor));
     }
 

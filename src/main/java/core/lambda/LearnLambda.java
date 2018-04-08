@@ -1,9 +1,22 @@
 package core.lambda;
 
+import core.model.Investor;
+
+import java.util.function.Function;
+
 public class LearnLambda {
 
     public static void main(String[] args) {
         //helloLambda();
+        //moreBasicLambda();
+
+        Function<Investor,String> lastNameExtractor = Investor::getLastName;
+        MyStringComparator<Investor> investorMyStringComparator = MyStringComparator.getComparator(lastNameExtractor);
+        Investor.INVESTOR_LIST.sort((o1, o2) -> investorMyStringComparator.compare(o1,o2));
+        Investor.INVESTOR_LIST.forEach( investor -> System.out.println(investor));
+    }
+
+    private static void moreBasicLambda() {
         MyConsumer<String> stringMyConsumer = (s) -> System.out.println("Hello " + s);
         MyConsumer<String> combined = stringMyConsumer.combine((s) -> System.out.println("combined"));
         combined.consume("demo");

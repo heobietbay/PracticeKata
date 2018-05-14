@@ -17,10 +17,18 @@ public class IntegerArrayFindDuplicate {
         arrayInteger = new int[] {0,1,2,3,4,5,6,7,8,9,10,11,9,13}; // missing 12, dup is 9
         duplicateElements = findDuplicate_UsingBitArray(arrayInteger);
         System.out.println(Arrays.toString(duplicateElements.toArray()));
+
+        arrayInteger = new int[] {0,1,2,3,4,5,6,7,7,9,10,11,9,13}; // missing 12 and 8, dup is 9,7
+        duplicateElements = findDuplicate_UsingBitArray(arrayInteger);
+        System.out.println(Arrays.toString(duplicateElements.toArray()));
+
+        System.out.println("Find missing value");
+        System.out.println(findMissingValue_UseMath(new int[]{0,1,2,3,4,5,6,7,9,10,11,12,13}));
     }
 
     /**
      * Because in this puzzle, the list is ordered from 0 to n-1, we can use this bit array technique.
+     * This technique can detect more than 1 missing value.
      * @param arrayInteger arrayInteger
      * @return the duplicate values.
      */
@@ -44,5 +52,21 @@ public class IntegerArrayFindDuplicate {
             }
         }
         return res;
+    }
+    /**
+     * Utilize sum of 1 to n formula: S = n(n+1)/2.
+     * First we find S, then we deduct all values in the input array, the result is the missing value.
+     * This technique can ONLY detect 1 missing value.
+     * @param arrayInteger arrayInteger
+     * @return the missing value.
+     */
+    private static Integer findMissingValue_UseMath(int[] arrayInteger) {
+        int sum = arrayInteger.length * ((arrayInteger.length + 1 )/2);
+        // then for each item in the source array
+        for(int val : arrayInteger)
+        {
+            sum -= val;
+        }
+        return sum;
     }
 }

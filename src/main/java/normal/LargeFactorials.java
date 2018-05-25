@@ -2,6 +2,7 @@ package normal;
 
 import easy.LargePositiveIntegerAddition;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,19 @@ public class LargeFactorials {
         System.out.println(factorial(25));
         System.out.println(factorial(5));
         System.out.println(factorial(10));
+    }
+
+    /**
+     *  Using BigInteger, we can store big integer number up to +2<sup>{@code Integer.MAX_VALUE}</sup> (exclusive).
+     *  I personally think using even this solution has limit, and the {@link #factorial(int)} method can holder much bigger value.
+     * @param n input num.
+     * @return string represent the factorial
+     */
+    private static String factorialUsingBigInteger(int n) {
+        return java.util.stream.IntStream.rangeClosed(1, n)
+                .mapToObj(i -> BigInteger.valueOf(i))
+                .reduce(BigInteger.ONE, (acc, i) -> acc.multiply(i))
+                .toString();
     }
 
     private static String factorial(int n) {

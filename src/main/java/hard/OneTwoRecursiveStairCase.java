@@ -25,7 +25,7 @@ package hard;
  </pre>
  * </p>
  */
-public class RecursiveStairCase {
+public class OneTwoRecursiveStairCase {
 
     public static void main(String[] args) {
         System.out.println(numWays_Recursive(4));

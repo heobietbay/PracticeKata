@@ -94,12 +94,15 @@ public class FirstSumPairs {
     /**
      * This only applies for sorted array.
      * The algo is another variation of the binary search.
-     * It works by summing the first (low) and last(hi) item in the array.
-     * If the total equals to the sum -> return low and hi.
-     * If not, repeat below steps until low meets hi.
-     *   - If total > sum -> move back from the end -> hi--;
-     *   - Else (total < sum) -> move forth from the start -> low++;
-     *
+     * <ul>It works by summing the first (low) and last(hi) item in the array.
+        <li>If the total equals to the sum -> return low and hi.</li>
+        <li>If not, repeat below steps until low meets hi.
+            <ul>
+                <li>- If total > sum -> move back from the end -> hi--;</li>
+                <li>- Else (total < sum) -> move forth from the start -> low++;</li>
+            </ul>
+         </li>
+       </ul>
      * @param inputArr
      * @param sum
      * @return

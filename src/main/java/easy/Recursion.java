@@ -30,9 +30,9 @@ public class Recursion {
 
     private static void printLinkedList()
     {
-        Node node1 = new Node(1,null);
-        Node node2 = new Node(2,null);
-        Node node3 = new Node(3,null);
+        Node<Integer> node1 = new Node(1,null);
+        Node<Integer> node2 = new Node(2,null);
+        Node<Integer> node3 = new Node(3,null);
 
         node1.setNext(node2);
         node2.setNext(node3);

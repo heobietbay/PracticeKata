@@ -1,13 +1,11 @@
 package core.model;
 
-public class Node {
-    Integer val;
+public class Node<E> {
+
+    E val;
     Node next;
 
-    public Node() {
-    }
-
-    public Node(Integer val, Node next) {
+    public Node(E val, Node next) {
         this.val = val;
         this.next = next;
     }
@@ -17,7 +15,7 @@ public class Node {
      *
      * @return val
      */
-    public Integer getVal() {
+    public E getVal() {
         return val;
     }
 
@@ -26,7 +24,7 @@ public class Node {
      *
      * @param val val
      */
-    public void setVal(Integer val) {
+    public void setVal(E val) {
         this.val = val;
     }
 

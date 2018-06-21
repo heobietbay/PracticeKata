@@ -64,14 +64,14 @@ public class MySinglyLinkedList<E> implements List<E> {
         while(startIdx < size && runNode != null)
         {
             Node nextNode = runNode.getNext();
-            if( nextNode != null && ((nextNode.getVal() == null && o == null) || o.equals( nextNode.getVal())) )
+            if(nodeContainsValue(o, nextNode))
             {
                 runNode.setNext(nextNode.getNext());
                 nextNode.setNext(null);
                 nextNode.setVal(null);
                 size--;
             }
-            else if ((runNode.getVal() == null && o == null) || o.equals( runNode.getVal()))
+            else if (nodeContainsValue(o,runNode))
             {
                 if(runNode != head )
                 {
@@ -89,6 +89,10 @@ public class MySinglyLinkedList<E> implements List<E> {
             startIdx++;
         }
         return true;
+    }
+
+    private static boolean nodeContainsValue(Object val, Node node) {
+        return node != null && ((node.getVal() == null && val == null) || val.equals( node.getVal()));
     }
 
 

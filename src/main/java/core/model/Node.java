@@ -1,5 +1,7 @@
 package core.model;
 
+import java.util.Objects;
+
 public class Node<E> {
 
     E val;
@@ -44,5 +46,20 @@ public class Node<E> {
      */
     public void setNext(Node next) {
         this.next = next;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?> node = (Node<?>) o;
+        return Objects.equals(val, node.val) &&
+                Objects.equals(next, node.next);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(val, next);
     }
 }

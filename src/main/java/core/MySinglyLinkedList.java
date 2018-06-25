@@ -136,6 +136,12 @@ public class MySinglyLinkedList<E> implements List<E> {
         //TODO:
     }
 
+    public Node<E> getNode(int idx)
+    {
+        checkSize(idx);
+        return getNodeAtIndex(idx);
+    }
+
     @Override
     public E get(int index) {
         checkSize(index);

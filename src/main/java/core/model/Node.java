@@ -53,7 +53,8 @@ public class Node<E> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Node<?> node = (Node<?>) o;
-        return Objects.equals(val, node.val) && next == node.getNext();
+        return Objects.equals(val, node.val) &&
+                Objects.equals(next, node.next);
     }
 
     @Override

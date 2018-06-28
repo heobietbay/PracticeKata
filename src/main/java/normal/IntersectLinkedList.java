@@ -3,8 +3,7 @@ package normal;
 import core.MySinglyLinkedList;
 import core.model.Node;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This problem was asked by Google.
@@ -20,16 +19,33 @@ import java.util.Map;
  */
 public class IntersectLinkedList {
     public static void main(String[] args) {
-        MySinglyLinkedList<Integer> lst1 = createLinkedList(8,0,10,22,23);
-        MySinglyLinkedList<Integer> lst2 = createLinkedList(99,1,8,66,10,22,23);
-        System.out.println(solution(lst1,lst2));
+        MySinglyLinkedList<Integer> lst1 = createLinkedList(8,0,12,22,23);
+        MySinglyLinkedList<Integer> lst2 = createLinkedList(99,1,10,66,12,22,23);
+        System.out.println(solution_KeepTrackOfVisitedNode(lst1,lst2));
     }
 
-    private static Integer solution(MySinglyLinkedList<Integer> lst1, MySinglyLinkedList<Integer> lst2)
+    /**
+     * Using a map to keep track of visited nodes.
+     * If we encounter a visited node -> thats the intersect point.
+     * This does not seem to meet constant space requirement, since we need an extra map.
+     * @param lst1
+     * @param lst2
+     * @return null or intersect point.
+     */
+    private static Integer solution_KeepTrackOfVisitedNode(MySinglyLinkedList<Integer> lst1, MySinglyLinkedList<Integer> lst2)
     {
-        int sizeList1 = lst1.size();
-        int sizeList2 = lst2.size();
+        // Using set would have same effect/
+        // Currently my implementation of Node.equals could lead to a lot of tracking -> not good performance.
+        Map<Integer,Node<Integer>> visitedNodes = new HashMap<>();
 
+        for ( Node<Integer> node : lst1.toNodeArray()) {
+            visitedNodes.put(node.hashCode(),node);
+        }
+
+        for ( Node<Integer> node : lst2.toNodeArray()) {
+            if(visitedNodes.containsKey(node.hashCode()))
+                return node.getVal();
+        }
 
         return null;
     }
@@ -38,14 +54,8 @@ public class IntersectLinkedList {
         MySinglyLinkedList<Integer> linkedList = new MySinglyLinkedList<>();
         for(Integer i : objs)
         {
-            if(!nodeMap.containsKey(i))
-            {
-                nodeMap.put(i, new Node<>(i,null));
-            }
-            linkedList.addNode(nodeMap.get(i));
+            linkedList.add(i);
         }
         return linkedList;
     }
-
-    private static Map<Integer,Node<Integer>> nodeMap = new HashMap<>();
 }

@@ -34,6 +34,13 @@ public class MySinglyLinkedList<E> implements List<E> {
             result[i++] = x.getVal();
         return result;
     }
+    public Node<E>[] toNodeArray() {
+        Node<E>[] result = new Node[size];
+        int i = 0;
+        for (Node<E> x = head; x != null; x = x.getNext())
+            result[i++] = x;
+        return result;
+    }
 
     @Override
     public <T> T[] toArray(T[] a) {

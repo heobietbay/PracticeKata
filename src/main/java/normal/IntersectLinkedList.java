@@ -1,6 +1,10 @@
 package normal;
 
 import core.MySinglyLinkedList;
+import core.model.Node;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This problem was asked by Google.
@@ -16,14 +20,17 @@ import core.MySinglyLinkedList;
  */
 public class IntersectLinkedList {
     public static void main(String[] args) {
-        MySinglyLinkedList<Integer> lst1 = createLinkedList(3,7,8,10);
-        MySinglyLinkedList<Integer> lst2 = createLinkedList(99,1,8,10);
+        MySinglyLinkedList<Integer> lst1 = createLinkedList(8,0,10,22,23);
+        MySinglyLinkedList<Integer> lst2 = createLinkedList(99,1,8,66,10,22,23);
         System.out.println(solution(lst1,lst2));
     }
 
     private static Integer solution(MySinglyLinkedList<Integer> lst1, MySinglyLinkedList<Integer> lst2)
     {
-        //TODO
+        int sizeList1 = lst1.size();
+        int sizeList2 = lst2.size();
+
+
         return null;
     }
 
@@ -31,8 +38,14 @@ public class IntersectLinkedList {
         MySinglyLinkedList<Integer> linkedList = new MySinglyLinkedList<>();
         for(Integer i : objs)
         {
-            linkedList.add(i);
+            if(!nodeMap.containsKey(i))
+            {
+                nodeMap.put(i, new Node<>(i,null));
+            }
+            linkedList.addNode(nodeMap.get(i));
         }
         return linkedList;
     }
+
+    private static Map<Integer,Node<Integer>> nodeMap = new HashMap<>();
 }

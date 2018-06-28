@@ -56,6 +56,20 @@ public class MySinglyLinkedList<E> implements List<E> {
         size++;
         return true;
     }
+    public boolean addNode(Node<E> node) {
+        if(head == null)
+        {
+            head = node;
+        }
+        else
+        {
+            // get last
+            Node<E> lastNode = getNodeAtIndex(size - 1);
+            lastNode.setNext(node);
+        }
+        size++;
+        return true;
+    }
 
     @Override
     public boolean remove(Object o) {

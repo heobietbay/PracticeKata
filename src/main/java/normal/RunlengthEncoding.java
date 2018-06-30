@@ -1,5 +1,7 @@
 package normal;
 
+import java.util.Arrays;
+
 /**
  * This problem was asked by Amazon.
  *
@@ -15,10 +17,33 @@ package normal;
 public class RunlengthEncoding {
     public static void main(String[] args) {
         System.out.println(solution("AAAABBBCCDAA"));
+        System.out.println(solution("ABBBAACCDEE"));
     }
 
-    private static String solution(String inp)
+    public static String solution(String inp)
     {
-        return inp;
+        int tmpCount = 0;
+        char curChar = inp.charAt(0);
+        StringBuilder sb = new StringBuilder();
+        for(char c : inp.toCharArray())
+        {
+            if(curChar == c)
+            {
+                tmpCount++;
+            }
+            else
+            {
+                sb.append(tmpCount + "" + curChar);
+                tmpCount = 1;
+                curChar = c;
+            }
+        }
+        sb.append(tmpCount + "" + curChar);
+        return sb.toString();
+    }
+
+    private static int[] charCounts = new int[26];
+    static {
+        Arrays.fill(charCounts,0);
     }
 }

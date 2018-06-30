@@ -22,6 +22,18 @@ public class IntersectLinkedList {
         MySinglyLinkedList<Integer> lst1 = createLinkedList(8,0,12,22,23);
         MySinglyLinkedList<Integer> lst2 = createLinkedList(99,1,10,66,12,22,23);
         System.out.println(solution_KeepTrackOfVisitedNode(lst1,lst2));
+        System.out.println(solution_DifferentNodeCount(lst1,lst2));
+
+        lst1 = createLinkedList(1,3,5,7,9,11,13);
+        lst2 = createLinkedList(1,3,5,7);
+        // should be null
+        System.out.println(solution_KeepTrackOfVisitedNode(lst1,lst2));
+        System.out.println(solution_DifferentNodeCount(lst1,lst2));
+
+        lst1 = createLinkedList(1,3,5,7,9,11,13);
+        lst2 = createLinkedList(11,13);
+        System.out.println(solution_KeepTrackOfVisitedNode(lst1,lst2));
+        System.out.println(solution_DifferentNodeCount(lst1,lst2));
     }
 
     /**
@@ -47,6 +59,48 @@ public class IntersectLinkedList {
                 return node.getVal();
         }
 
+        return null;
+    }
+    /**
+     <ol>
+        <li>Get count of the nodes in first list, let count be c1.</li>
+        <li>Get count of the nodes in second list, let count be c2.</li>
+        <li>Get the difference of counts d = abs(c1 – c2)</li>
+        <li>Now traverse the bigger list from the first node till d nodes so that from here onwards
+             both the lists have equal number of nodes.</li>
+        <li>Then we can traverse both the lists in parallel till we come across a common node.</li>
+     </ol>
+     * @param lst1
+     * @param lst2
+     * @return null or intersect point.
+     */
+    private static Integer solution_DifferentNodeCount(MySinglyLinkedList<Integer> lst1, MySinglyLinkedList<Integer> lst2)
+    {
+        int size1 = lst1.size();
+        int size2 = lst2.size();
+
+        if(size1 == size2)
+        {
+            if(lst1.getNode(0).equals(lst2.getNode(0)))
+            {
+                return lst1.getNode(0).getVal();
+            }
+            return null;
+        }
+
+        int countDif = Math.abs(size1 - size2);
+        MySinglyLinkedList<Integer> biggerList = size1 > size2 ? lst1 : lst2;
+
+        Node<Integer> tmpNode = biggerList.getNode(countDif);
+        Node<Integer> current2 = lst1 == biggerList ? lst2.getNode(0) : lst1.getNode(0);
+
+        while (tmpNode != null && current2 != null) {
+            if (tmpNode.equals(current2)) {
+                return tmpNode.getVal();
+            }
+            tmpNode = tmpNode.getNext();
+            current2 = current2.getNext();
+        }
         return null;
     }
 

@@ -7,8 +7,7 @@ public class StringsEditDistanceTest {
 
     @Test
     public void test(){
-        String s1 = "kitten";
-        String s2 = "sitting";
-        Assert.assertEquals(3, StringsEditDistance.solution(s1,s2));
+      //  Assert.assertEquals(3, StringsEditDistance.solution("kitten","sitting"));
+        Assert.assertEquals(2,StringsEditDistance.solution("ATCAT","ATTATC"));
     }
 }

@@ -1,8 +1,6 @@
 package normal;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * This problem was asked by Google.
@@ -17,7 +15,7 @@ import java.util.List;
  */
 public class PowerSet {
     public static void main(String[] args) {
-        List<List<Integer>> lists = solutionBitMask(Arrays.asList(1, 2, 3));
+        List<List<Integer>> lists = solutionRecursive(Arrays.asList(1, 2, 3));
         if(lists != null && !lists.isEmpty())
         {
             lists.forEach(lst -> System.out.println(Arrays.toString(lst.toArray())));
@@ -51,4 +49,24 @@ public class PowerSet {
         return res;
     }
 
+    private static List<List<Integer>>  solutionRecursive(List<Integer> originalSet) {
+        List<List<Integer>> sets = new ArrayList<>();
+        if (originalSet.isEmpty()) {
+            sets.add(new ArrayList<>());
+            return sets;
+        }
+        List<Integer> list = originalSet;
+        // Add the first element in the lst
+        Integer head = list.get(0);
+        // now, find every possible combination of head + rest
+        List<Integer> rest = new ArrayList<>(list.subList(1, list.size()));
+        for (List<Integer> set : solutionRecursive(rest)) {
+            List<Integer> newSet = new ArrayList<>();
+            newSet.add(head);
+            newSet.addAll(set);
+            sets.add(newSet);
+            sets.add(set);
+        }
+        return sets;
+    }
 }

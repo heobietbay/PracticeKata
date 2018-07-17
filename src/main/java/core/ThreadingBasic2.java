@@ -9,8 +9,25 @@ public class ThreadingBasic2 implements  Runnable {
 
     static Random generator = new Random();
     static Integer staticNumber = 0;
-
+    static boolean done = false;
     public static void main(String[] args) throws InterruptedException {
+        //testJoin();
+        //TODO: explains why this is running forever
+        new Thread(() -> {
+            int count = 0;
+            while(!done)
+            {
+                count++;
+            }
+            System.out.println("Count is: " + count);
+        }).start();
+
+        Thread.sleep(2000);
+        System.out.println("Setting done to true");
+        done = true;
+    }
+
+    private static void testJoin() throws InterruptedException {
         Thread t1 = new Thread(new ThreadingBasic2());
         t1.start();
         t1.join();

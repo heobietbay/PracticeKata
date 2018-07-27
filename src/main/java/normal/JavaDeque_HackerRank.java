@@ -5,30 +5,28 @@ public class JavaDeque_HackerRank {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Deque deque = new ArrayDeque<>();
-        int n = in.nextInt();
-        int m = in.nextInt();
+        int total = in.nextInt();
+        int subArraySize = in.nextInt();
         int maxUnique = 0;
-        Set<Integer> uniqueNums = new LinkedHashSet<>(m);
-        for (int i = 0; i < n; i++) {
-            int num = in.nextInt();
-            /*if(!deque.contains(num) //TODO: Improve this
-                    && maxUnique<m)
-            {
-                maxUnique++;
-            }
-            if(deque.size() == m){
-                deque.removeFirst();
-            }
-            deque.addLast(num);*/
+        // to store the current unique number of the current subarray
+        Set<Integer> uniqueNums = new LinkedHashSet<>(subArraySize);
+        for (int i = 0; i < total; i++) {
+            int number = in.nextInt();
+            deque.addLast(number);
+            uniqueNums.add(number);
 
-            deque.addLast(num);
-            if(deque.size() == m){
-                uniqueNums = new LinkedHashSet<>(deque);
-                if(maxUnique < uniqueNums.size())
-                {
+            // Ok, is the subarray reaching maximum size
+            if (deque.size() == subArraySize) {
+
+                if (uniqueNums.size() > maxUnique) {
                     maxUnique = uniqueNums.size();
                 }
-                deque.removeFirst();
+
+                Integer firstNumberInDeque = (Integer)deque.removeFirst();
+                //if the number we remove - at the first - is not unique in old deque
+                if (!deque.contains(firstNumberInDeque)) {
+                    uniqueNums.remove(firstNumberInDeque);
+                }
             }
         }
         System.out.println(""+maxUnique);

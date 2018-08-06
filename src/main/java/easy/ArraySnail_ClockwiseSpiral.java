@@ -38,6 +38,14 @@ import java.util.List;
  </pre>
  */
 public class ArraySnail_ClockwiseSpiral {
+    public static void main(String[] args) {
+        int[][] array2d = { {1,  2,  3,  4,  5},
+                            {6,  7,  8,  9,  10},
+                            {11, 12, 13, 14, 15},
+                            {16, 17, 18, 19, 20}
+                          };
+        solution(array2d);
+    }
     /**
      *
      <pre>
@@ -56,9 +64,51 @@ public class ArraySnail_ClockwiseSpiral {
      NOTE 2: The 0x0 (empty matrix) is represented as [[]]
      </pre>
      */
-
-    public static List<Integer> snail(List<List<Integer>> array2d)
+    public static void solution(int[][] array2d)
     {
-        return null;
+        int col = 0;
+        int row = 0;
+
+        int colLen = array2d[0].length; // assuming every row have the same col
+        int rowLen = array2d.length;
+
+        int i;
+
+        while (row < rowLen && col < colLen)
+        {
+            // Print the first row from the remaining rows
+            for (i = col; i < colLen; ++i)
+            {
+                System.out.print(array2d[row][i]+" ");
+            }
+            row++;
+
+            // Print the last column from the remaining columns
+            for (i = row; i < rowLen; ++i)
+            {
+                System.out.print(array2d[i][colLen-1]+" ");
+            }
+            colLen--;
+
+            // Print the last row from the remaining rows */
+            if ( row < rowLen)
+            {
+                for (i = colLen-1; i >= col; --i)
+                {
+                    System.out.print(array2d[rowLen-1][i]+" ");
+                }
+                rowLen--;
+            }
+
+            // Print the first column from the remaining columns */
+            if (col < colLen)
+            {
+                for (i = rowLen-1; i >= row; --i)
+                {
+                    System.out.print(array2d[i][col]+" ");
+                }
+                col++;
+            }
+        }
     }
 }

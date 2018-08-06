@@ -1,5 +1,7 @@
 package easy;
 
+import java.util.Arrays;
+
 /**
  * This problem was asked by Microsoft.
  * <pre>
@@ -24,10 +26,37 @@ public class SearchWordIn2dGrid {
                {'M', 'A', 'S', 'S'}};
 
         System.out.println( solution(gridCh, "FOAM"));
+        System.out.println( solution(gridCh, "FA"));;
+        System.out.println( solution(gridCh, "AC"));
     }
 
     public static boolean solution(char[][] gridCh, String word)
     {
+        char[] targetChs = word.toCharArray();
+        char[] tmpCh = new char[word.length()];
+        for(int row = 0 ; row < gridCh.length; row++)
+        {
+            char[] rowChs = gridCh[row];
+            for(int col = 0 ; col < rowChs.length; col++)
+            {
+                // horizontal check
+                if(col <= rowChs.length - word.length())
+                {
+                    System.arraycopy(rowChs,col,tmpCh,0,tmpCh.length);
+                    if(Arrays.equals(tmpCh,targetChs))
+                        return true;
+                }
+                // vertical check
+                if(row >= word.length())
+                {
+                    for(int v = row; v>= row - word.length(); v--)
+                    {
+
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }

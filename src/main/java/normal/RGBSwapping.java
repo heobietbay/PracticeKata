@@ -13,6 +13,6 @@ package normal;
  */
 public class RGBSwapping {
     public static void main(String[] args) {
-
+        //TODO
     }
 }

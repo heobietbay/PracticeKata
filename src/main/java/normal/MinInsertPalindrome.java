@@ -17,6 +17,6 @@ package normal;
 public class MinInsertPalindrome {
 
     public static void main(String[] args) {
-
+        //TODO
     }
 }

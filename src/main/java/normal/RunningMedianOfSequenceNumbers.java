@@ -22,7 +22,6 @@ package normal;
 public class RunningMedianOfSequenceNumbers {
 
     public static void main(String[] args) {
-
-
+        //TODO
     }
 }

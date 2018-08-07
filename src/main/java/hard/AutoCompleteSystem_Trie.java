@@ -12,4 +12,5 @@ package hard;
  * Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries.
  */
 public class AutoCompleteSystem_Trie {
+    //TODO
 }

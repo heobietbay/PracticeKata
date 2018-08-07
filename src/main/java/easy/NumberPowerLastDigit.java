@@ -20,6 +20,7 @@ public class NumberPowerLastDigit {
 
     private static int lastDigit(List<Integer> list)
     {
+        //TODO
         if(list.isEmpty())
         {
             return 1;

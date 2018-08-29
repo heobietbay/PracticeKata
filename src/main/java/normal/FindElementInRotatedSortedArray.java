@@ -17,7 +17,6 @@ import java.util.Arrays;
  */
 public class FindElementInRotatedSortedArray {
     public static void main(String[] args) {
-        //TODO
         int[] inpArr = new int[] {13, 18, 25, 2, 8, 10};
         Integer foundIdx = solution(inpArr, 8);
         System.out.println(foundIdx);

@@ -1,5 +1,7 @@
 package normal;
 
+import java.util.Arrays;
+
 /**
  * This problem was asked by Amazon.
  <pre>
@@ -17,12 +19,44 @@ public class FindElementInRotatedSortedArray {
     public static void main(String[] args) {
         //TODO
         int[] inpArr = new int[] {13, 18, 25, 2, 8, 10};
-        Integer foundIdx = solution(inpArr);
+        Integer foundIdx = solution(inpArr, 8);
         System.out.println(foundIdx);
     }
 
-    private static Integer solution(int[] inpArr) {
-        return null;
+    /**
+     * This assumes the array is ascending.
+     <pre>
+     * The idea is to find the pivot point first.
+     * Since that point to end of array, everything is sorted.
+     * Use binary search to find the idx of the item.
+     </pre>
+     * @param inpArr
+     * @param x
+     * @return null if not found, element idx otherwise.
+     */
+    public static Integer solution(int[] inpArr, int x) {
+        int pivotPoint = findPivotPoint(inpArr);
+        int firstPhase = Arrays.binarySearch(inpArr, pivotPoint, inpArr.length - 1, x);
+        //if at first you dont succeed try again
+        int found = firstPhase >= 0 ? firstPhase : Arrays.binarySearch(inpArr, 0, pivotPoint, x);
+        return found >= 0 ? found : null;
+    }
+
+    /**
+     * This assumes the array is ascending. Find the point that splits the array into 2 ordered array.
+     * @param inpArr
+     * @return
+     */
+    private static int findPivotPoint(int[] inpArr) {
+        int start = 0;
+        int end = inpArr.length - 1;
+        int mid = (start + end)/2;
+        while( mid >0 && inpArr[mid] >= inpArr[mid-1] && start != mid)
+        {
+            start = mid;
+            mid = (start + end)/2;
+        }
+        return mid;
     }
 
 }

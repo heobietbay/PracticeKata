@@ -16,6 +16,13 @@ package normal;
 public class FindElementInRotatedSortedArray {
     public static void main(String[] args) {
         //TODO
-
+        int[] inpArr = new int[] {13, 18, 25, 2, 8, 10};
+        Integer foundIdx = solution(inpArr);
+        System.out.println(foundIdx);
     }
+
+    private static Integer solution(int[] inpArr) {
+        return null;
+    }
+
 }

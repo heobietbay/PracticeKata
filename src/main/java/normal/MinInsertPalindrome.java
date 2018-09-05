@@ -1,5 +1,7 @@
 package normal;
 
+import java.util.Arrays;
+
 /**
  * This problem was asked by Quora.
  * <p>
@@ -18,5 +20,22 @@ public class MinInsertPalindrome {
 
     public static void main(String[] args) {
         //TODO
+        System.out.println(isPalindrome("race"));
+        System.out.println(isPalindrome("racecar"));
+        System.out.println(isPalindrome("elgoogle"));
+        System.out.println(isPalindrome("ecarace"));
+        System.out.println(isPalindrome("ab"));
+    }
+
+    static boolean isPalindrome(String input){
+        char[] charArray = input.toCharArray();
+        for(int i = 0 ; i < charArray.length/2 ; i++)
+        {
+            char cs = charArray[i]; // start
+            char ce = charArray[charArray.length-i -1]; // end
+            if(ce != cs)
+                return false;
+        }
+        return true;
     }
 }

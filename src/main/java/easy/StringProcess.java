@@ -8,54 +8,13 @@ public class StringProcess {
     public static void main(String[] args) {
 
         String longInput = buildLongString(1_000_000,"This ,is a vaery looooooooooooooongggggggggggggggggggggggggg long worddddddddddddddddd.");
-        longestStringFast(longInput);
+        longestStringSlow(longInput);
     }
-
-    private static void longestStringFast(String longInput) {
-        long start1;
-        String s1;
-        start1 = System.currentTimeMillis();
-        s1 = searchLongestWordInStringNotSplit(longInput);
-        System.out.println((System.currentTimeMillis() - start1));
-        System.out.println(s1);
-    }
-
     private static void longestStringSlow(String longInput) {
         long start1 = System.currentTimeMillis();
         String s1 = searchLongestStringBySplit(longInput);
         System.out.println((System.currentTimeMillis() - start1));
         System.out.println(s1);
-    }
-
-    static String searchLongestWordInStringNotSplit(String input) {
-
-        StringBuilder temp = new StringBuilder("");
-        String flag = null;
-        boolean wordEncounter = false; //each time we encounter a word, we increase the count
-        for (int i = 0; i < input.length(); i++) {
-            char c = input.charAt(i);
-            if (isExcludeChar(c)) {
-                if (wordEncounter) {
-                    wordEncounter = false;
-                    if(flag == null || flag.length() < temp.length())
-                    {
-                        flag = temp.toString();
-                    }
-                    temp = new StringBuilder();
-                }
-            } else {
-                wordEncounter = true;
-                temp.append(c);
-            }
-        }
-        if(wordEncounter) // EOF
-        {
-            if(flag == null || flag.length() < temp.length())
-            {
-                flag = temp.toString();
-            }
-        }
-        return flag;
     }
     static String searchLongestStringBySplit(String inp)
     {

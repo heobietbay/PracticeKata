@@ -15,7 +15,7 @@ public class ArrayMerge {
             System.out.println(i);
         }
     }
-    static int[] mergeSort(int[] arr)
+    public static int[] mergeSort(int[] arr)
     {
         if(arr.length == 1)
         {
@@ -48,7 +48,7 @@ public class ArrayMerge {
         return merge(leftAr,rightAr);
     }
 
-    static int[] merge(int[] arrL, int[] arrR)
+    public static int[] merge(int[] arrL, int[] arrR)
     {
         int len1 = arrL.length;
         int len2 = arrR.length;

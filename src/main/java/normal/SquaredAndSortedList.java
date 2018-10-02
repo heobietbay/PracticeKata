@@ -14,16 +14,17 @@ import java.util.Arrays;
 public class SquaredAndSortedList {
     public static void main(String[] args) {
         System.out.println(Arrays.toString(solution(new int[]{-9, -2, -1, 0, 2, 3})));
+        System.out.println(Arrays.toString(solution(new int[]{ -3,-2, -1})));
         System.out.println(Arrays.toString(solution(new int[]{-9,-8,-7,-6,-5,-4,-3,-2, -1, 0, 2, 3})));
     }
 
     /**
      * The idea is:
      * <ol>
-         <li>Find the idx that separate the array, one part negative, one part non-negative.</li>
-         <li>Then, square them arrays.</li>
-         <li>Then combine the array (kind of like merge sort last step).</li>
-      </ol>
+     <li>Find the idx that separate the array, one part negative, one part non-negative.</li>
+     <li>Then, square them arrays.</li>
+     <li>Then combine the array (kind of like merge sort last step).</li>
+     </ol>
      This can be improved by utilize binary search to find the split point.
      * @param inpSortedArr
      * @return
@@ -31,8 +32,15 @@ public class SquaredAndSortedList {
     public static int[] solution(int[] inpSortedArr)
     {
         int splitIdx = findSplitPoint(inpSortedArr);
-        if(splitIdx == 0){
-            return ArrayMerge.mergeSort(squareArray(inpSortedArr));
+        if(splitIdx <= 0){ // so we either got an all-negative array, or non-negative array
+            if(inpSortedArr[0] < 0) // all negative array
+            {
+                int[] squareArray = squareArray(inpSortedArr);
+                //reverse it
+                return reverse(squareArray);
+            }
+            // other case: just need to square
+            return squareArray(inpSortedArr);
         }
         int[] leftArr = buildLeftArray(inpSortedArr,splitIdx);
         int[] rightArr = new int[inpSortedArr.length - splitIdx];
@@ -40,6 +48,14 @@ public class SquaredAndSortedList {
         return  ArrayMerge.merge(squareArray(leftArr),squareArray(rightArr));
     }
 
+    private static int[] reverse(int[] inpArray){
+        int[] reversedArr = new int[inpArray.length];
+        for(int i = 0 ; i < inpArray.length; i++)
+        {
+            reversedArr[i] = inpArray[inpArray.length-i-1];
+        }
+        return reversedArr;
+    }
     /**
      * The input is the sorted array, and the split point that separate array into negative and non negative.
      * From 0 to split point, we have all elements negative.
@@ -78,8 +94,8 @@ public class SquaredAndSortedList {
             if(inpSortedArr[idx] < 0)
                 idx++;
             else
-                break;
+                return idx;
         }
-        return idx;
+        return -1;
     }
 }

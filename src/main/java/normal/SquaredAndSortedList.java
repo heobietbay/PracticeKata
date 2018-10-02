@@ -15,6 +15,8 @@ public class SquaredAndSortedList {
     public static void main(String[] args) {
         System.out.println(Arrays.toString(solution(new int[]{-9, -2, -1, 0, 2, 3})));
         System.out.println(Arrays.toString(solution(new int[]{ -3,-2, -1})));
+        System.out.println(Arrays.toString(solution(new int[]{ 1,2,3,4})));
+        System.out.println(Arrays.toString(solution(new int[]{ -6, -3, -1, 2, 4, 5 })));
         System.out.println(Arrays.toString(solution(new int[]{-9,-8,-7,-6,-5,-4,-3,-2, -1, 0, 2, 3})));
     }
 
@@ -42,7 +44,7 @@ public class SquaredAndSortedList {
             // other case: just need to square
             return squareArray(inpSortedArr);
         }
-        int[] leftArr = buildLeftArray(inpSortedArr,splitIdx);
+        int[] leftArr = buildLeftArray(inpSortedArr,splitIdx-1);
         int[] rightArr = new int[inpSortedArr.length - splitIdx];
         System.arraycopy(inpSortedArr,splitIdx,rightArr,0,inpSortedArr.length - splitIdx);
         return  ArrayMerge.merge(squareArray(leftArr),squareArray(rightArr));
@@ -83,18 +85,26 @@ public class SquaredAndSortedList {
     }
 
     /**
-     * TODO: implement binary search for better performance
+     * Implement binary search to find the split point.
      * @param inpSortedArr
      * @return
      */
     private static int findSplitPoint(int[] inpSortedArr) {
-        int idx = 0;
-        while(idx < inpSortedArr.length)
-        {
-            if(inpSortedArr[idx] < 0)
-                idx++;
-            else
-                return idx;
+        int start = 0;
+        int end = inpSortedArr.length - 1;
+
+        while (start <= end) {
+            int pos = (start + end) / 2;
+            int midVal = inpSortedArr[pos];
+            // each time we check if any 2 adjacent numbers are both negative, or both non negative
+            // cannot find such pair -> found split point
+            if (midVal > 0 && pos > 0 && inpSortedArr[pos-1] > 0) {
+                end = pos - 1;
+            } else if (midVal < 0 && pos >0 && inpSortedArr[pos-1] < 0) {
+                start = pos + 1;
+            } else {
+                return (start + end) / 2;
+            }
         }
         return -1;
     }

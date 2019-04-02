@@ -23,6 +23,9 @@ public class RemoveSumZeroNodesLinkedList {
 
         headNode = buildInput(3 , 1 , -10,2,4 , -2 , -6 , 8);
         solutionRecursive(headNode,headNode,null);
+
+        headNode = buildInput(-5,1,5,8,-8,100,-7,7);
+        solutionRecursive(headNode,headNode,null);
     }
 
     public static void solution(Node<Integer> head)
@@ -63,6 +66,7 @@ public class RemoveSumZeroNodesLinkedList {
             if(originalNode.getNext() == null)
               return;
             else {
+                System.out.println("LEFT__" + originalNode.getVal() + "__LEFT");
                 solutionRecursive(originalNode.getNext(),originalNode,null);
                 return;
             }
@@ -78,11 +82,13 @@ public class RemoveSumZeroNodesLinkedList {
             {
                 System.out.println("[" + originalNode.getVal() + "," + runnerNode.getVal() + "]");
 
-                // save the next node
+                // Now, we start from this point
+                //  -> runnerNode becomes originalNode as the arg
+                //  -> runnerNode.next is now the runner
                 Node runner = runnerNode.getNext();
 
                 //continue
-                solutionRecursive(runner,originalNode,null);
+                solutionRecursive(runner,runnerNode,null);
             }
             else {
                solutionRecursive(runnerNode.getNext(),originalNode,initialVal);

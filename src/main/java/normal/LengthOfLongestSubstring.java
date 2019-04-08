@@ -61,35 +61,23 @@ public class LengthOfLongestSubstring {
         int longest = 0;
         char[] chArray = s.toCharArray();
 
-        Set<Character> tmpChs = new HashSet<>();
+        Set<Character> chSet = new HashSet<>();
 
-        for(int i = 0 , j = i+1;
-            i < chArray.length -1 && j < chArray.length ;
-            j++)
+        for(int i = 0 ;
+            i < chArray.length -1 ;
+            )
         {
+            chSet.add(chArray[i]);
             // check the portion from (i , j] for duplicate char
-            for(int idx = i ; idx <= j; idx++) {
-                /*
-                'A': 65
-                'a': 97
-                */
-                Character chTemp = Character.valueOf(chArray[idx]);
-                if(tmpChs.contains(chTemp))
+            for(int j = i +1 ; j < chArray.length; j++) {
+                if(chSet.contains(chArray[j]))
                 {
-                    longest = longest < tmpChs.size() ? tmpChs.size() : longest;
+                    longest = longest < chSet.size() ? chSet.size() : longest;
+                    chSet.clear();
                     i++;
-                    // reset tmpChs
-                    tmpChs.clear();
                     break;
                 }
-                else {
-                    tmpChs.add(chTemp);
-                }
-                if(idx == j){
-                    longest = longest < tmpChs.size() ? tmpChs.size() : longest;
-                    // reset tmpChs
-                    tmpChs.clear();
-                }
+                chSet.add(chArray[j]);
             }
         }
         return longest;

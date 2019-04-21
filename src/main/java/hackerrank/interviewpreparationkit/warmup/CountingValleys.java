@@ -67,11 +67,43 @@ package hackerrank.interviewpreparationkit.warmup;
 public class CountingValleys {
 
     public static void main(String[] args) {
+        String path = "UDDDUDUU";
+        int countValley = solution(path.length(),path.toCharArray());
+        System.out.println(countValley);
 
+        path = "DDUUUUDD";
+        countValley = solution(path.length(),path.toCharArray());
+        System.out.println(countValley);
     }
 
+    /**
+     * How to spot if we enter a valley.
+     * We enter a valley if we first in SEA_LEVEL, then go down (and down...), then back to SEA_LEVEL.
+     * @param n
+     * @param path
+     * @return
+     */
     public static int solution (int n, char[] path)
     {
-        return 0;
+        int currentlocation = SEA_LEVEL;
+        int countValley = 0;
+        for(int i = 0 ; i < n; i++)
+        {
+            char step = path[i];
+            int weight = step == 'U' ? 1 : -1;
+
+            if(currentlocation == SEA_LEVEL && currentlocation + weight < SEA_LEVEL)
+            {
+                //entering valley
+                countValley++;
+                currentlocation += weight;
+                continue;
+            }
+            currentlocation += weight;
+
+        }
+        return countValley;
     }
+
+    private static final int SEA_LEVEL = 0;
 }

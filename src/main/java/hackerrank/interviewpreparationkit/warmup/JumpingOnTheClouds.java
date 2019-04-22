@@ -22,7 +22,7 @@ public class JumpingOnTheClouds {
                 count++;
             }
             else {
-                i++;
+                i += JUMP_ONE;
                 count++;
             }
         }

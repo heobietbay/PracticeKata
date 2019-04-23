@@ -12,6 +12,12 @@ public class JumpingOnTheClouds {
         System.out.println(minStep);
     }
 
+    /**
+     * The requirement to calculate the minimum number of jump.
+     * My approach is to always GREEDY do a 2 jumps whenever possible.
+     * @param clouds
+     * @return
+     */
     public static int solution(int[] clouds) {
         int count = 0;
         int i = 0;

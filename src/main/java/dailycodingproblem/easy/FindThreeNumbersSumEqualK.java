@@ -23,9 +23,15 @@ public class FindThreeNumbersSumEqualK {
         System.out.println(hasSuchThreeEls);
     }
 
+
+    public static boolean solutionSorted(int[] numbers, int k)
+    {
+
+        return false;
+    }
+
     /**
-     * One <font color = 'red'> WRONG, FLAW</font> of this solution is
-     *  this requires the <b>input numbers element to be unique</b>.
+     *
      * This solution utilizes Set.
      <ol>
          <li>populate the set of all numbers</li>

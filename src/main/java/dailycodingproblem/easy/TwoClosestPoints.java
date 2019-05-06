@@ -1,8 +1,6 @@
 package dailycodingproblem.easy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * This problem was asked by Google.
@@ -24,13 +22,53 @@ public class TwoClosestPoints {
         pointList.add(new Point(-4,-3));
 
         List<Point> twoClosestPoints = solution(pointList);
+        System.out.println(twoClosestPoints);
+
+
+        pointList = new ArrayList<>();
+        pointList.add(new Point(1,1));
+        pointList.add(new Point(1,2));
+        pointList.add(new Point(2,3));
+        pointList.add(new Point(3,4));
+        pointList.add(new Point(1,0));
+        pointList.add(new Point(1,-1));
+        pointList.add(new Point(-2,3));
+        pointList.add(new Point(-2,1));
+        pointList.add(new Point(3,2));
+
+        twoClosestPoints = solution(pointList);
+        System.out.println(twoClosestPoints);
     }
 
-    private static List<Point> solution(List<Point> pointList) {
-        return null;
+    // TODO: do more unit test
+    /**
+     * <a>https://en.wikipedia.org/wiki/Closest_pair_of_points_problem</a>
+     * My approach is to sort the points by comparing the distance of each point to the base (0,0) point.
+     *
+     * @param pointList
+     * @return
+     */
+    public static List<Point> solution(List<Point> pointList) {
+
+        Collections.sort(pointList,
+                Comparator.comparingDouble(Point::distanceFromBase)
+                          .thenComparing(point -> point.x));
+
+        //TODO: NOT done yet
+        return Arrays.asList(pointList.get(0), pointList.get(1));
     }
 
     static class Point {
+
+        static Point G_POINT = new Point(0,0);
+
+        public double distanceFromBase(){
+            return distanceFromPoint(G_POINT);
+        }
+        public double distanceFromPoint(Point otherP){
+            double tmp = Math.pow((x - otherP.x),2) + Math.pow((y - otherP.y),2);
+            return Math.sqrt(tmp);
+        }
 
         @Override
         public boolean equals(Object o) {
@@ -44,6 +82,14 @@ public class TwoClosestPoints {
         @Override
         public int hashCode() {
             return Objects.hash(x, y);
+        }
+
+        @Override
+        public String toString() {
+            return "[" +
+                     x +
+                    "," + y +
+                    ']';
         }
 
         public Point(int x, int y) {

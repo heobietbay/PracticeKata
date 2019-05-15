@@ -44,9 +44,42 @@ public class RemoveDuplicatesFromSortedArray {
 
     public static void main(String[] args) {
 
+        int[] nums = new int[]{0,0,1,1,1,2,2,3,3,4};
+        int uniqueLen = solution(nums);
+        for(int i = 0 ; i < uniqueLen; i++)
+        {
+            System.out.println(nums[i]);
+        }
     }
 
     public static int solution(int[] nums){
-        return -1;
+        return approachTwoPointers(nums);
+    }
+
+    /**
+     <pre>
+     * Since the array is already sorted, we can keep two pointers <font color='green'>sr</font>
+     * and <font color='blue'>fr</font>, where sr is the slow-runner while fr is the fast-runner.
+     * As long as
+     * <font color='green'>nums[sr]</font>  =  <font color='blue'>nums[fr]</font>
+     , we increment fr to skip the duplicate.
+     *
+     * When we encounter nums[fr] != nums[sr] , the duplicate run has ended so we must copy its value to nums[sr+1].
+     *  sr is then incremented and we repeat the same process again until fr reaches the end of array.
+     </pre>
+     * @param nums the array that will be amended.
+     * @return unique length
+     */
+    private static int approachTwoPointers(int[] nums) {
+        if (nums.length == 0)
+            return 0;
+        int sr = 0;
+        for (int fr = 1; fr < nums.length; fr++) {
+            if (nums[fr] != nums[sr]) {
+                sr++;
+                nums[sr] = nums[fr];
+            }
+        }
+        return sr + 1;
     }
 }

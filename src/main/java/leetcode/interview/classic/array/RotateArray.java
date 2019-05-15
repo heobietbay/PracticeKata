@@ -30,10 +30,43 @@ package leetcode.interview.classic.array;
 public class RotateArray {
 
     public static void main(String[] args) {
-
+        int[] nums = new int[]{1,2,3,4,5,6,7};
+        solution(nums,3);
+        for(int i = 0 ; i < nums.length; i++)
+        {
+            System.out.print(nums[i] + " ");
+        }
     }
 
+    /**
+     * First calculate exactly how many times we need to rotate.
+     * Observe that the actual rotation time X = k % nums.length.
+     * Then call rotateRight X times.
+     * @param nums nums
+     * @param k original how many rotation
+     */
     public static void solution(int[] nums, int k) {
 
+        int howManyRotate = k % nums.length;
+        for(int i = 0 ; i < howManyRotate; i++)
+            rotateRight(nums);
+    }
+
+    /**
+     * Shift right the array one time.
+     * Doing in place replace.
+     * @param nums nums
+     */
+    public static void rotateRight(int[] nums)
+    {
+        int last = nums[nums.length -1];
+        int before = nums[0];
+        for(int i = 1 ; i< nums.length; i++)
+        {
+            int tmp = nums[i];
+            nums[i] = before;
+            before = tmp;
+        }
+        nums[0] = last;
     }
 }

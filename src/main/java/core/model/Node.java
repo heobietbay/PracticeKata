@@ -4,10 +4,31 @@ import java.util.Objects;
 
 public class Node<E> {
 
-    E val;
-    Node next;
+    public static <E> Node<E> createList(E... els)
+    {
+        Node<E> head = new Node<>(els[0],null);
 
-    public Node(E val, Node next) {
+        Node<E> tmp = head;
+        for(int i = 1; i < els.length; i++)
+        {
+            tmp.setNext(new Node<E>(els[i],null));
+            tmp = tmp.getNext();
+        }
+
+        return head;
+    }
+    public static <E> void printList(Node<E> list)
+    {
+        while(list != null)
+        {
+            System.out.print(list.getVal());
+            list = list.getNext();
+            if(list != null)
+                System.out.print("->");
+        }
+    }
+
+    public Node(E val, Node<E> next) {
         this.val = val;
         this.next = next;
     }
@@ -35,7 +56,7 @@ public class Node<E> {
      *
      * @return next
      */
-    public Node getNext() {
+    public Node<E> getNext() {
         return next;
     }
 
@@ -44,7 +65,7 @@ public class Node<E> {
      *
      * @param next next
      */
-    public void setNext(Node next) {
+    public void setNext(Node<E> next) {
         this.next = next;
     }
 
@@ -62,4 +83,7 @@ public class Node<E> {
 
         return Objects.hash(val, next);
     }
+
+    E val;
+    Node<E> next;
 }

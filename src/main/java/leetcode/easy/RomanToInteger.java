@@ -6,10 +6,82 @@ public class RomanToInteger {
         String inp = "III";
         int val = solution(inp);
         System.out.println(val);
+
+        inp = "IV";
+        val = solution(inp);
+        System.out.println(val);
+
+        inp = "IX";
+        val = solution(inp);
+        System.out.println(val);
+
+        inp = "LVIII";
+        val = solution(inp);
+        System.out.println(val);
+
+        inp = "MCMXCIV";
+        val = solution(inp);
+        System.out.println(val);
     }
 
+    /**
+     * PLEASE NOTE: This does NOT detect invalid input such as IXL.
+     * Input must be correct in order for this to work.
+     * @param inp the input Roman number represent as string
+     * @return base 10 value.
+     */
     private static int solution(String inp) {
-        return 0;
+        // first, calculate sum, not taking into special case like IV, IX, XL, XC, CD, CM
+        int sum = 0;
+        char[] charArray = inp.toCharArray();
+        for(char ch : charArray)
+        {
+            int val = RomanNumChar.fromChar(ch).baseTenVal;
+            sum += val;
+        }
+        // then, calculate special cases above, subtract each of them 2 times
+        // reason: supposed we calculate IV as I + V = 6, while it should be IV = V - I = 4
+        int first = 0;
+        int second = 1;
+        while(second < charArray.length)
+        {
+            char ci = charArray[first];
+            char cj = charArray[second];
+            if(ci == 'I')
+            {
+                if(cj == 'X' || cj == 'V')
+                {
+                    sum -= 2 * RomanNumChar.fromChar(ci).baseTenVal;
+                    first = second + 1;
+                    second = second + 2;
+                    continue;
+                }
+            }
+            else if(ci == 'X')
+            {
+                if(cj == 'L' || cj == 'C')
+                {
+                    sum -= 2 * RomanNumChar.fromChar(ci).baseTenVal;
+                    first = second + 1;
+                    second = second + 2;
+                    continue;
+                }
+            }
+            else if(ci == 'C')
+            {
+                if(cj == 'D' || cj == 'M')
+                {
+                    sum -= 2 * RomanNumChar.fromChar(ci).baseTenVal;
+                    first = second + 1;
+                    second = second + 2;
+                    continue;
+                }
+            }
+
+            first++;
+            second++;
+        }
+        return sum;
     }
 
     enum RomanNumChar {
@@ -24,7 +96,7 @@ public class RomanToInteger {
         int getBaseTenVal(){
             return baseTenVal;
         }
-        RomanNumChar fromChar(char ch)
+        static RomanNumChar fromChar(char ch)
         {
             if(ch == 'I')
                 return I;
@@ -47,6 +119,5 @@ public class RomanToInteger {
             this.baseTenVal = val;
         }
         private int baseTenVal;
-
     }
 }

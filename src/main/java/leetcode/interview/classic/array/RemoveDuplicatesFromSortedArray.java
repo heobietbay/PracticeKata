@@ -57,6 +57,8 @@ public class RemoveDuplicatesFromSortedArray {
     }
 
     /**
+     * The whole idea is to copy every unique element in a way so that they are next to each other.
+     * Because the list is ALREADY SORTED, this is not hard to do.
      <pre>
      * Since the array is already sorted, we can keep two pointers <font color='green'>sr</font>
      * and <font color='blue'>fr</font>, where sr is the slow-runner while fr is the fast-runner.

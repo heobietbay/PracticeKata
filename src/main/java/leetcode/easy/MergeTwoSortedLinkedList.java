@@ -24,8 +24,10 @@ public class MergeTwoSortedLinkedList {
         printList(lst2);
     }
 
+    //TODO
     public static Node<Integer> solution(Node<Integer> lst1,Node<Integer> lst2)
     {
+        Node<Integer> head = lst1.getVal().compareTo(lst2.getVal()) < 0 ? lst1 : lst2;
         return null;
     }
 

@@ -19,10 +19,18 @@ public class SinglyLinkedListProblems {
 
         insertNth(oneTwoThree,4,3);
         insertNth(oneTwoThree,0,0);
-        insertNth(oneTwoThree,-1,2);
         insertNth(oneTwoThree,5,5);
-        insertNth(oneTwoThree,7,7);
+        insertNth(oneTwoThree,7,6);
         Node.printList(oneTwoThree);
+
+        System.out.println();
+
+        sortedInsert(oneTwoThree,new Node<>(-1,null));
+        sortedInsert(oneTwoThree,new Node<>(2,null));
+        sortedInsert(oneTwoThree,new Node<>(8,null));
+        sortedInsert(oneTwoThree,new Node<>(6,null));
+        Node.printList(oneTwoThree);
+
     }
 
 
@@ -108,6 +116,44 @@ public class SinglyLinkedListProblems {
              Node<Integer> newNode = new Node<>(val,prev.getNext());
              prev.setNext(newNode);
          }
+    }
+
+    /**
+     * Given a list that is sorted in increasing order, and a single node, inserts the node into the correct sorted position in the list.
+     * @param lst
+     * @param newNode
+     */
+    static void sortedInsert(Node<Integer> lst, Node<Integer> newNode) {
+        if(lst == null)
+            throw new IllegalArgumentException();
+        // case : newNode value is less than or equals to the head
+        //  swap value of these 2, then the head will link to the new node
+        if(newNode.getVal().compareTo(lst.getVal()) <= 0)
+        {
+            Integer tmp = newNode.getVal();
+            newNode.setNext(lst.getNext());
+            newNode.setVal(lst.getVal());
+            lst.setNext(newNode);
+            lst.setVal(tmp);
+            return;
+        }
+
+        Node<Integer> prev = lst;
+        Node<Integer> runner = lst;
+        while(runner != null && runner.getVal().compareTo(newNode.getVal())<=0)
+        {
+            prev = runner;
+            runner = runner.getNext();
+        }
+
+        // case newNode value is the largest value, newNode will be the tail
+        if(runner == null){
+            prev.setNext(newNode);
+        }
+        else {
+            prev.setNext(newNode);
+            newNode.setNext(runner);
+        }
     }
 
     static Node<Integer> buildOneTwoThree(){

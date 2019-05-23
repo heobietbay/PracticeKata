@@ -155,6 +155,14 @@ public class SinglyLinkedListProblems {
             newNode.setNext(runner);
         }
     }
+    //TODO
+    /**
+     * given a list, rearranges its nodes so they are sorted in increasing order. It should use sortedInsert
+     * @param lst
+     */
+    static void insertSort(Node<Integer> lst) {
+
+    }
 
     static Node<Integer> buildOneTwoThree(){
         return Node.createList(1,2,3);

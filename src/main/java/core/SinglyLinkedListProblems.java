@@ -19,9 +19,17 @@ public class SinglyLinkedListProblems {
 
         insertNth(oneTwoThree,4,3);
         insertNth(oneTwoThree,0,0);
-        insertNth(oneTwoThree,-1,2);
-        insertNth(oneTwoThree,5,5);
+        insertNth(oneTwoThree,-1,0);
+        insertNth(oneTwoThree,5,6);
         insertNth(oneTwoThree,7,7);
+        Node.printList(oneTwoThree);
+
+        System.out.println();
+        sortedInsert(oneTwoThree, new Node<>(0,null));
+        sortedInsert(oneTwoThree, new Node<>(-1,null));
+        sortedInsert(oneTwoThree, new Node<>(6,null));
+        sortedInsert(oneTwoThree, new Node<>(-22,null));
+        sortedInsert(oneTwoThree, new Node<>(8,null));
         Node.printList(oneTwoThree);
     }
 
@@ -108,6 +116,47 @@ public class SinglyLinkedListProblems {
              Node<Integer> newNode = new Node<>(val,prev.getNext());
              prev.setNext(newNode);
          }
+    }
+
+    /**
+     * Write a sortedInsert() function which given a list that is sorted in increasing order, and a
+     * single node, inserts the node into the correct sorted position in the list.
+     * There are many possible solutions to this
+     * problem.
+     * @param lst
+     * @param newNode
+     */
+    static void sortedInsert(Node<Integer> lst, Node<Integer> newNode) {
+        if(lst == null || newNode == null)
+            throw new IllegalArgumentException();
+
+        // Keep track of the head
+        Node<Integer> head = lst;
+        Node<Integer> prev = lst;
+        while(lst != null)
+        {
+            if(lst.getVal().compareTo(newNode.getVal()) < 0 && lst.getNext() != null)
+            {
+                prev = lst;
+                lst = lst.getNext();
+                continue;
+            }
+
+            newNode.setNext(lst.getNext() == null ? null : prev.getNext());
+            if(lst.getNext() == null){
+                lst.setNext(newNode);
+            }else{
+                prev.setNext(newNode);
+            }
+            if(head == lst) // in case the newNode value is less than the head,
+            // we need to swap the newNode value with the head value.
+            {
+                Integer tmp = newNode.getVal();
+                newNode.setVal(head.getVal());
+                head.setVal(tmp);
+            }
+            break;
+        }
     }
 
     static Node<Integer> buildOneTwoThree(){

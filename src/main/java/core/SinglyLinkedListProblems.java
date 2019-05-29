@@ -19,18 +19,18 @@ public class SinglyLinkedListProblems {
 
         insertNth(oneTwoThree,4,3);
         insertNth(oneTwoThree,0,0);
-        insertNth(oneTwoThree,-1,0);
-        insertNth(oneTwoThree,5,6);
-        insertNth(oneTwoThree,7,7);
+        insertNth(oneTwoThree,5,5);
+        insertNth(oneTwoThree,7,6);
         Node.printList(oneTwoThree);
 
         System.out.println();
-        sortedInsert(oneTwoThree, new Node<>(0,null));
-        sortedInsert(oneTwoThree, new Node<>(-1,null));
-        sortedInsert(oneTwoThree, new Node<>(6,null));
-        sortedInsert(oneTwoThree, new Node<>(-22,null));
-        sortedInsert(oneTwoThree, new Node<>(8,null));
+
+        sortedInsert(oneTwoThree,new Node<>(-1,null));
+        sortedInsert(oneTwoThree,new Node<>(2,null));
+        sortedInsert(oneTwoThree,new Node<>(8,null));
+        sortedInsert(oneTwoThree,new Node<>(6,null));
         Node.printList(oneTwoThree);
+
     }
 
 
@@ -119,44 +119,49 @@ public class SinglyLinkedListProblems {
     }
 
     /**
-     * Write a sortedInsert() function which given a list that is sorted in increasing order, and a
-     * single node, inserts the node into the correct sorted position in the list.
-     * There are many possible solutions to this
-     * problem.
+     * Given a list that is sorted in increasing order, and a single node, inserts the node into the correct sorted position in the list.
      * @param lst
      * @param newNode
      */
     static void sortedInsert(Node<Integer> lst, Node<Integer> newNode) {
-        if(lst == null || newNode == null)
+        if(lst == null)
             throw new IllegalArgumentException();
-
-        // Keep track of the head
-        Node<Integer> head = lst;
-        Node<Integer> prev = lst;
-        while(lst != null)
+        // case : newNode value is less than or equals to the head
+        //  swap value of these 2, then the head will link to the new node
+        if(newNode.getVal().compareTo(lst.getVal()) <= 0)
         {
-            if(lst.getVal().compareTo(newNode.getVal()) < 0 && lst.getNext() != null)
-            {
-                prev = lst;
-                lst = lst.getNext();
-                continue;
-            }
-
-            newNode.setNext(lst.getNext() == null ? null : prev.getNext());
-            if(lst.getNext() == null){
-                lst.setNext(newNode);
-            }else{
-                prev.setNext(newNode);
-            }
-            if(head == lst) // in case the newNode value is less than the head,
-            // we need to swap the newNode value with the head value.
-            {
-                Integer tmp = newNode.getVal();
-                newNode.setVal(head.getVal());
-                head.setVal(tmp);
-            }
-            break;
+            Integer tmp = newNode.getVal();
+            newNode.setNext(lst.getNext());
+            newNode.setVal(lst.getVal());
+            lst.setNext(newNode);
+            lst.setVal(tmp);
+            return;
         }
+
+        Node<Integer> prev = lst;
+        Node<Integer> runner = lst;
+        while(runner != null && runner.getVal().compareTo(newNode.getVal())<=0)
+        {
+            prev = runner;
+            runner = runner.getNext();
+        }
+
+        // case newNode value is the largest value, newNode will be the tail
+        if(runner == null){
+            prev.setNext(newNode);
+        }
+        else {
+            prev.setNext(newNode);
+            newNode.setNext(runner);
+        }
+    }
+    //TODO
+    /**
+     * given a list, rearranges its nodes so they are sorted in increasing order. It should use sortedInsert
+     * @param lst
+     */
+    static void insertSort(Node<Integer> lst) {
+
     }
 
     static Node<Integer> buildOneTwoThree(){

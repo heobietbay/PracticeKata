@@ -45,14 +45,64 @@ public class RemoveElement {
     public static void main(String[] args) {
         int[] nums = new int[] {3,2,2,3};
         int newLen = solution(nums,2);
+        printArr(nums,newLen);
 
-        for(int i = 0 ; i < newLen; i++)
+        nums = new int[] {2,2,3};
+        newLen = solution(nums,2);
+        printArr(nums,newLen);
+
+        nums = new int[] {0,1,2,2,3,0,4,2};
+        newLen = solution(nums,2);
+        printArr(nums,newLen);
+    }
+
+    /**
+     * First solution. 2 main steps
+     * <ol>
+     *     <li> First, count how many time the values needs to be delete. This need an O(n) loop.</li>
+     *     <li> Then, move all the found elements to end of array.</li>
+     *     <li>The final lenght is the total len - number of removed elements.</li>
+     * </ol>
+     * @param nums
+     * @param val
+     * @return
+     */
+    public static int solution(int[] nums, int val) {
+        int howManyToDel = 0;
+        for(int i = 0 ; i < nums.length; i++)
+        {
+            if(nums[i] != val)
+                continue;
+            howManyToDel++;
+        }
+        if(howManyToDel == 0)
+            return nums.length;
+
+        int res = nums.length;
+
+        for(int i = 0 ; i < nums.length; i++)
+        {
+            if(nums[i] != val)
+                continue;
+            int j = i;
+            while(j < nums.length && nums[i] == val)
+            {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                j++;
+            }
+        }
+
+        return res - howManyToDel;
+    }
+
+    public static void printArr(int[] nums, int toIdx)
+    {
+        for(int i = 0 ; i < toIdx; i++)
         {
             System.out.printf(nums[i] + " ");
         }
-    }
-
-    public static int solution(int[] nums, int val) {
-        return nums.length;
+        System.out.println();
     }
 }

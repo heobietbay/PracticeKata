@@ -1,5 +1,8 @@
 package leetcode.medium;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * <pre>
  * Implement atoi which converts a string to an integer. *
@@ -49,10 +52,41 @@ package leetcode.medium;
  */
 public class StringToInteger {
     public static void main(String[] args) {
-
+        System.out.println(solution("-5-"));
+        System.out.println(solution("3.14"));
     }
 
     public static int solution(String str){
+        String regStr = "^[\\+|\\-]{0,1}[0-9]{1,}";
 
+        Pattern pattern = Pattern.compile(regStr);
+        Matcher numMatcher = pattern.matcher(str.trim());
+        if(!numMatcher.find())
+        {
+            return 0;
+        }
+        String numStr = numMatcher.group(0);
+        int sign = numStr.charAt(0) == '-' ? -1 : 1;
+        long sum = 0;
+        int base=0;
+        for(int i = numStr.length() - 1; i >= 0 ; i--)
+        {
+            char c = numStr.charAt(i);
+            if(c == '+' || c == '-')
+                break;
+            int toInt = c - 48;
+            sum += toInt * (Math.pow(10,base));
+            base++;
+        }
+        long finalResult = sum * sign;
+        if(finalResult > Integer.MAX_VALUE)
+        {
+            return Integer.MAX_VALUE;
+        }
+        else if(finalResult < Integer.MIN_VALUE)
+        {
+            return Integer.MIN_VALUE;
+        }
+        return (int) finalResult;
     }
 }

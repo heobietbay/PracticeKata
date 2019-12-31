@@ -41,7 +41,7 @@ public class ImplementStrStr {
                 nidx++;
             }
             // else, reset the needle runner, and back the nidx step for the haystack runner
-            else {
+            else if(nidx != 0) {
                 hdx -= nidx;
                 nidx = 0;
             }
@@ -58,5 +58,6 @@ public class ImplementStrStr {
         System.out.println(strStr("hello","lo"));
         System.out.println(strStr("aaaaa","bba"));
         System.out.println(strStr("",""));
+        System.out.println(strStr("hellohenlo","henlo"));
     }
 }

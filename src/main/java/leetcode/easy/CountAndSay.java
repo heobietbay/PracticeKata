@@ -35,11 +35,40 @@ package leetcode.easy;
 public class CountAndSay {
 
     public static void main(String[] args) {
-
+        int n = 4;
+        System.out.println(solution(n));
     }
 
+    /**
+     * First attempt: loop and generate the string plus counting it
+     * @param n
+     * @return string
+     */
     public static String solution(int n)
     {
-        return "";
+        String temp = "1";
+        for(int i = 1 ; i < n; i++)
+        {
+            temp = innerCount(temp);
+        }
+        return temp;
+    }
+    private static String innerCount(String str)
+    {
+        String temp = "";
+        int count = 1;
+        for(int i = 0 ; i < str .length()-1; i++)
+        {
+            if(str.charAt(i+1) == str.charAt(i))
+            {
+                count++;
+            }
+            else  {
+                temp += count + "" + str.charAt(i);
+                count = 1;
+            }
+        }
+        temp += count + "" + str.charAt(str .length()-1);
+        return temp;
     }
 }

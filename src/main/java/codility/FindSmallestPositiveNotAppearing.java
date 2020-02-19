@@ -38,24 +38,30 @@ public class FindSmallestPositiveNotAppearing {
 
         smallest = solution(new int[]{-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,8,9});
         System.out.println(smallest);
+
+        smallest = solution(new int[]{4, 5, 6, 2});
+        System.out.println(smallest);
     }
     public static int solution(int[] arr){
+        // add a temp 0 to array
+        // this is cater for scenario such as [4, 5, 6, 2], dont know how to explain this yet :p
+        int[] arrayTmp = new int[arr.length + 1];
+        System.arraycopy(arr, 0, arrayTmp, 1, arr.length);
 
-        Arrays.sort(arr);
-        int max = arr[arr.length-1] ;
+        Arrays.sort(arrayTmp);
+        int max = arrayTmp[arrayTmp.length-1] ;
         if(max < 0)
             return 1;
         // lets start with a null flag
         Integer flag = null;
        // use binary search to find if flag exists in the array
-        //THIS NEEDS TO BE CORRECT FOR CASE [4, 5, 6, 2] the solution returned a wrong answer (got 3 expected 1).
-        for(int i = 0 ; i < arr.length; i++)
+        for(int i = 0 ; i < arrayTmp.length; i++)
         {
-            int num = arr[i];
+            int num = arrayTmp[i];
             int posibleFind = num + 1;
             if(posibleFind <= 0)
                 continue;
-            if(Arrays.binarySearch(arr,posibleFind) < 0 )
+            if(Arrays.binarySearch(arrayTmp,posibleFind) < 0 )
             {
                 if(flag == null)
                     flag = posibleFind;

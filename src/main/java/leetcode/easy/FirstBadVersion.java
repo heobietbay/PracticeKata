@@ -33,6 +33,8 @@ public class FirstBadVersion {
        int found = -1;
        while( start <= end )
        {
+           // This is to prevent overflow
+           // if we do normal (start + end)/2, we can run into INT_MAX -> overflow
            int mid = start  + ((end - start)/2);
            if(isBadVersion(mid)) {
                if(found == -1 || found > mid)

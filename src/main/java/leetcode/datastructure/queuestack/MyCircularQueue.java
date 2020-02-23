@@ -30,6 +30,11 @@ import java.util.List;
 public class MyCircularQueue {
     //TODO: FIX
     public static void main(String[] args) {
+       // test1();
+        test2();
+    }
+
+    private static void test1() {
         MyCircularQueue circularQueue = new MyCircularQueue(3); // set the size to be 3
         circularQueue.enQueue(1);  // return true
         circularQueue.enQueue(2);  // return true
@@ -51,13 +56,55 @@ public class MyCircularQueue {
 
         rear = circularQueue.Rear();  // return 4
         System.out.println(rear);
-
-
-        test2();
-
     }
 
+    /**
+     * Input: ["MyCircularQueue","enQueue","Rear","Front","deQueue","Front","deQueue","Front","enQueue","enQueue","enQueue","enQueue"]
+     * [[3],[2],[],[],[],[],[],[],[4],[2],[2],[3]]
+     *
+     * Expected
+     * [true,2,2,true,-1,false,-1,true,true,true,false]
+     */
     private static void test2() {
+        List<Object> outputs = new ArrayList<>();
+        MyCircularQueue circularQueue = new MyCircularQueue(3);
+
+        boolean enQueue2 = circularQueue.enQueue(2);// return true
+        outputs.add(enQueue2);
+
+        int rear = circularQueue.Rear();// return 2
+        outputs.add(rear);
+
+        int front = circularQueue.Front();// return 2
+        outputs.add(front);
+
+        boolean dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        front = circularQueue.Front();// return -1
+        outputs.add(front);
+
+        dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        front = circularQueue.Front();
+        outputs.add(front);
+
+        boolean enQueue4 = circularQueue.enQueue(4);// return true
+        outputs.add(enQueue4);
+
+        enQueue2 = circularQueue.enQueue(2);// return true
+        outputs.add(enQueue2);
+
+        enQueue2 = circularQueue.enQueue(2);// return true
+        outputs.add(enQueue2);
+
+        boolean enQueue3 = circularQueue.enQueue(3);
+        outputs.add(enQueue3);
+
+        System.out.println(outputs);
+    }
+    private static void test3() {
         List<Object> outputs = new ArrayList<>();
         MyCircularQueue circularQueue = new MyCircularQueue(6);
 

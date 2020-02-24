@@ -28,10 +28,10 @@ import java.util.List;
 
  */
 public class MyCircularQueue {
-    //TODO: FIX
     public static void main(String[] args) {
-       // test1();
+        //test1();
         test2();
+        test4();
     }
 
     private static void test1() {
@@ -102,7 +102,9 @@ public class MyCircularQueue {
         boolean enQueue3 = circularQueue.enQueue(3);
         outputs.add(enQueue3);
 
-        System.out.println(outputs);
+        String outputStr = String.valueOf(outputs);
+        System.out.println(outputStr);
+        System.out.println(outputStr.equals("[true, 2, 2, true, -1, false, -1, true, true, true, false]"));
     }
     private static void test3() {
         List<Object> outputs = new ArrayList<>();
@@ -143,26 +145,58 @@ public class MyCircularQueue {
 
         System.out.println(outputs);
     }
+    /**
+     * Input: ["MyCircularQueue","enQueue","Rear","enQueue","deQueue","Front","deQueue","deQueue","isEmpty","deQueue","enQueue","enQueue"]
+     * [[2],[4],[],[9],[],[],[],[],[],[],[6],[4]]
+     *
+     * Expected: [null, true, 4, true, true, 9, true, false, true, false, true, true]
+     */
+    private static void test4() {
+        List<Object> outputs = new ArrayList<>();
+        MyCircularQueue circularQueue = new MyCircularQueue(2);
+        outputs.add(null);
 
+        boolean enQueue2 = circularQueue.enQueue(4);
+        outputs.add(enQueue2);
+
+        int rear = circularQueue.Rear();
+        outputs.add(rear);
+
+        boolean enQueue = circularQueue.enQueue(9);
+        outputs.add(enQueue);
+
+        boolean dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        int front = circularQueue.Front();
+        outputs.add(front);
+
+        dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        boolean empty = circularQueue.isEmpty();
+        outputs.add(empty);
+
+        dequeue = circularQueue.deQueue();
+        outputs.add(dequeue);
+
+        enQueue = circularQueue.enQueue(6);
+        outputs.add(enQueue);
+
+        enQueue = circularQueue.enQueue(4);
+        outputs.add(enQueue);
+
+        String outputStr = String.valueOf(outputs);
+        System.out.println(outputStr);
+        System.out.println(outputStr.equals("[null, true, 4, true, true, 9, true, false, true, false, true, true]"));
+    }
     /** Insert an element into the circular queue. Return true if the operation is successful. */
     public boolean enQueue(int value) {
         if(isFull())
             return false;
-       /* if(data[tail] == null)  // If current tail has empty slot, put the element there
-        {
-            data[tail] = value;
-        }
-        else {
-            // Reach end of array, however, first slots may be empty, move tail to the start.
-            if(tail == data.length - 1)
-            {
-                tail = 0;
-                data[tail] = value;
-            }
-            else {
-                data[++tail] = value;
-            }
-        }*/
         if(tail == data.length - 1)
         {
             tail = -1;
@@ -174,15 +208,26 @@ public class MyCircularQueue {
 
     /** Delete an element from the circular queue. Return true if the operation is successful. */
     public boolean deQueue() {
-        if(isEmpty())
+        if(head == -1 || isEmpty())
             return false;
         if(data[head] == null)
         {
             return false;
         }
         data[head] = null;
-        head++;
-       return true;
+        head = head + 1 == data .length ? 0 : head + 1;
+        return true;
+    }
+
+    /** Checks whether the circular queue is empty or not. */
+    public boolean isEmpty() {
+        return data[tail] == null && data[head] == null;
+    }
+
+    /** Checks whether the circular queue is full or not. */
+    public boolean isFull() {
+        return (tail == data.length - 1 && data[tail] != null && head == 0)
+                || (head - tail == 1 && data[tail] != null);
     }
 
     /** Get the front item from the queue. */
@@ -198,18 +243,6 @@ public class MyCircularQueue {
             return -1;
        return data[tail] ;
     }
-
-    /** Checks whether the circular queue is empty or not. */
-    public boolean isEmpty() {
-        return head ==0 && tail==0 && data[0] == null;
-    }
-
-    /** Checks whether the circular queue is full or not. */
-    public boolean isFull() {
-        return (tail == data.length - 1 && data[tail] != null && head == 0) ;
-
-    }
-
 
     /** Initialize your data structure here. Set the size of the queue to be k. */
     public MyCircularQueue(int k) {

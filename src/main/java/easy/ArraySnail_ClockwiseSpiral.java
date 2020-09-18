@@ -1,7 +1,5 @@
 package easy;
 
-import java.util.List;
-
 /**
  * This problem was asked by Amazon.
  <pre>
@@ -40,9 +38,9 @@ import java.util.List;
 public class ArraySnail_ClockwiseSpiral {
     public static void main(String[] args) {
         int[][] array2d = { {1,  2,  3,  4,  5},
-                            {6,  7,  8,  9,  10},
-                            {11, 12, 13, 14, 15},
-                            {16, 17, 18, 19, 20}
+                            {14, 15, 16, 17, 6},
+                            {13, 20, 19, 18, 7},
+                            {12, 11, 10,  9, 8}
                           };
         solution(array2d);
     }
@@ -77,14 +75,14 @@ public class ArraySnail_ClockwiseSpiral {
         while (row < rowLen && col < colLen)
         {
             // Print the first row from the remaining rows
-            for (i = col; i < colLen; ++i)
+            for (i = col; i < colLen; i++)
             {
                 System.out.print(array2d[row][i]+" ");
             }
             row++;
 
             // Print the last column from the remaining columns
-            for (i = row; i < rowLen; ++i)
+            for (i = row; i < rowLen; i++)
             {
                 System.out.print(array2d[i][colLen-1]+" ");
             }

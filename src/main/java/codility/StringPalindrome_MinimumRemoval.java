@@ -1,5 +1,10 @@
 package codility;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * You are given a string S containing lowercase English letters.
  * Your task is to calculate the minimum number of letters that need to be removed
@@ -19,9 +24,57 @@ package codility;
  */
 public class StringPalindrome_MinimumRemoval {
     public static void main(String[] args) {
+        List<Object[]> params = new ArrayList<>();
+        params.add(new Object[]{ "ervervige", Integer.valueOf(solution("ervervige"))});
+        params.add(new Object[]{ "aaabab", Integer.valueOf(solution("aaabab"))});
+        params.add(new Object[]{ "xaxb", Integer.valueOf(solution("xaxb"))});
 
+        params.stream().forEach( param -> {
+            String msg = MessageFormat.format("{0}: {1}", param);
+            System.out.println(msg);
+        });
     }
     public static int solution(String inp) {
-        return 0;
+        if(isPalindrome(inp))
+            return 0;
+        int min = inp.length() - 1;
+        StringBuilder sb = new StringBuilder(inp);
+        for(int i = 0 ; i < sb.length() - 1; i++) {
+            String sub = sb.substring(i+1, sb.length());
+            int count = solutionInner(sub, 1 + i);
+            if (min > count) {
+                min = count;
+            }
+        }
+        return min;
+    }
+
+    private static int solutionInner(String inp, int curCount) {
+        if(isPalindrome(inp)) {
+            return curCount ;
+        }
+        for(int i = 0 ; i < inp.length(); i++) {
+            StringBuilder sb = new StringBuilder(inp);
+            String excludeI = sb.deleteCharAt(i).toString();
+            if(isPalindrome(excludeI)) {
+                return curCount + 1;
+            }
+        }
+        return inp.length();
+    }
+
+    static boolean isPalindrome(String input){
+        if(input.length() == 1) {
+            return true;
+        }
+        char[] charArray = input.toCharArray();
+        for(int i = 0 ; i < charArray.length/2 ; i++)
+        {
+            char cs = charArray[i]; // start
+            char ce = charArray[charArray.length-i -1]; // end
+            if(ce != cs)
+                return false;
+        }
+        return true;
     }
 }

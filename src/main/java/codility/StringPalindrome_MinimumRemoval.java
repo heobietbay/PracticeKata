@@ -25,9 +25,9 @@ import java.util.List;
 public class StringPalindrome_MinimumRemoval {
     public static void main(String[] args) {
         List<Object[]> params = new ArrayList<>();
+        params.add(new Object[]{ "xaxb", Integer.valueOf(solution("xaxb"))});
         params.add(new Object[]{ "ervervige", Integer.valueOf(solution("ervervige"))});
         params.add(new Object[]{ "aaabab", Integer.valueOf(solution("aaabab"))});
-        params.add(new Object[]{ "xaxb", Integer.valueOf(solution("xaxb"))});
 
         params.stream().forEach( param -> {
             String msg = MessageFormat.format("{0}: {1}", param);
@@ -39,12 +39,14 @@ public class StringPalindrome_MinimumRemoval {
             return 0;
         int min = inp.length() - 1;
         StringBuilder sb = new StringBuilder(inp);
-        for(int i = 0 ; i < sb.length() - 1; i++) {
-            String sub = sb.substring(i+1, sb.length());
-            int count = solutionInner(sub, 1 + i);
+        for(int i = 0 ; i < sb.length(); i++) {
+            char ci = sb.charAt(i);
+            String sub = sb.deleteCharAt(i).toString();
+            int count = solutionInner(sub, 1);
             if (min > count) {
                 min = count;
             }
+            sb.insert(i,ci);
         }
         return min;
     }

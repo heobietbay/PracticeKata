@@ -28,6 +28,7 @@ public class StringPalindrome_MinimumRemoval {
         params.add(new Object[]{ "xaxb", Integer.valueOf(solution("xaxb"))});
         params.add(new Object[]{ "ervervige", Integer.valueOf(solution("ervervige"))});
         params.add(new Object[]{ "aaabab", Integer.valueOf(solution("aaabab"))});
+        params.add(new Object[]{ "grevivere", Integer.valueOf(solution("grevivere"))});
 
         params.stream().forEach( param -> {
             String msg = MessageFormat.format("{0}: {1}", param);

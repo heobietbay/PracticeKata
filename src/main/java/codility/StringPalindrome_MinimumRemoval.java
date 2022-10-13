@@ -1,9 +1,8 @@
 package codility;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * You are given a string S containing lowercase English letters.
@@ -25,17 +24,36 @@ import java.util.List;
 public class StringPalindrome_MinimumRemoval {
     public static void main(String[] args) {
         List<Object[]> params = new ArrayList<>();
-        params.add(new Object[]{ "xaxb", Integer.valueOf(solution("xaxb"))});
-        params.add(new Object[]{ "ervervige", Integer.valueOf(solution("ervervige"))});
-        params.add(new Object[]{ "aaabab", Integer.valueOf(solution("aaabab"))});
-        params.add(new Object[]{ "grevivere", Integer.valueOf(solution("grevivere"))});
+        params.add(new Object[]{ "xaxb", Integer.valueOf(solution_HowManyToRemoveToMakePalindrome("xaxb"))});
+        params.add(new Object[]{ "grevivere", Integer.valueOf(solution_HowManyToRemoveToMakePalindrome("grevivere"))});
+        params.add(new Object[]{ "aaabab", Integer.valueOf(solution_HowManyToRemoveToMakePalindrome("aaabab"))});
+        params.add(new Object[]{ "gfhjjklgf", Integer.valueOf(solution_HowManyToRemoveToMakePalindrome("gfhjjklgf"))});
+        params.add(new Object[]{ "ervervige", Integer.valueOf(solution_RemoveTilPalindrome("ervervige"))});
 
         params.stream().forEach( param -> {
             String msg = MessageFormat.format("{0}: {1}", param);
             System.out.println(msg);
         });
     }
-    public static int solution(String inp) {
+    public static int solution_HowManyToRemoveToMakePalindrome(String inp) {
+        if(isPalindrome(inp))
+            return 0;
+        Map<Character, Integer> charCountMap = new HashMap<>();
+        for(char c: inp.toCharArray()) {
+            Integer count = charCountMap.getOrDefault(c, 0);
+            charCountMap.put(c, count + 1);
+        }
+        long countOdds = charCountMap.values().stream().filter( count -> count %2 != 0).count();
+        if(countOdds == 0) {
+            return 0;
+        } else {
+            List<Integer> collect = charCountMap.values().stream().filter(count -> count % 2 != 0).collect(Collectors.toList());
+            collect.stream().sorted();
+            Integer sum = collect.stream().reduce(0, (subtotal, element) -> subtotal + element);
+            return sum - collect.get(0);
+        }
+    }
+    public static int solution_RemoveTilPalindrome(String inp) {
         if(isPalindrome(inp))
             return 0;
         int min = inp.length() - 1;
@@ -51,7 +69,6 @@ public class StringPalindrome_MinimumRemoval {
         }
         return min;
     }
-
     private static int solutionInner(String inp, int curCount) {
         if(isPalindrome(inp)) {
             return curCount ;

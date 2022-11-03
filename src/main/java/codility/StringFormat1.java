@@ -39,7 +39,9 @@ Examples:
 public class StringFormat1 {
     public static void main(String[] args) {
         System.out.println(solution("And now here is my secret", 15));
+        System.out.println(solution("And now here is my secret", 16));
         System.out.println(solution("There is an animal with four legs", 15));
+        System.out.println(solution("There is an animal with four legs", 22));
         System.out.println(solution("super dog", 4));
         System.out.println(solution("how are you", 20));
     }
@@ -66,7 +68,9 @@ public class StringFormat1 {
         int lastWhiteSpacePos = -1;
         for(int i = 0 ; i < message.length() ; i++) {
             if(message.charAt(i) == ' ') {
-                if( i <= K - 3) {
+                // i - 1: before the whitespace
+                // K - 4: max length is K, and we have to save 3 spaces for 3 dots and 1 whitespace
+                if( i - 1 < K - 4) {
                     lastWhiteSpacePos = i;
                 }
             }

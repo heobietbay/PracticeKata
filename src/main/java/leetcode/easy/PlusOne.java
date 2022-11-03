@@ -71,6 +71,8 @@ public class PlusOne {
                 carrier = 0;
             }
             tmps[i] = res ;
+            if(carrier == 0)
+                break;
         }
         if(carrier == 1) {
             lst.add(0, carrier);

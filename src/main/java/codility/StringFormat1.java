@@ -38,27 +38,41 @@ Examples:
 */
 public class StringFormat1 {
     public static void main(String[] args) {
+        System.out.println(solution("And now here is my secret", 15));
         System.out.println(solution("There is an animal with four legs", 15));
+        System.out.println(solution("super dog", 4));
+        System.out.println(solution("how are you", 20));
     }
     public static String solution (String message, int K) {
         if(K >= message.length())
             return message;
 
         String[] words = message.split(" ");
-        List<String> lst = Arrays.asList(words);
 
         if(words[0].length() > K)
             return "...";
 
-        int max = K;
+//        List<String> lst = Arrays.asList(words);
+//        int max = K;
+//        for(int i = 0 ; i < words.length; i++) {
+//            max = max - words[i].length() - 1; // 1 is whitespace
+//            if(max <= 3) {
+//                int to = max == 3 ? i + 1 : i;
+//                String res = lst.subList(0, to).stream().collect(Collectors.joining(" "));
+//                return res + " " + "...";
+//            }
+//        }
 
-        for(int i = 0 ; i < words.length; i++) {
-            max = max - words[i].length() - 1; // 1 is whitespace
-            if(max <= 3) {
-                int to = max == 3 ? i + 1 : i;
-                String res = lst.subList(0, to).stream().collect(Collectors.joining(" "));
-                return res + " " + "...";
+        int lastWhiteSpacePos = -1;
+        for(int i = 0 ; i < message.length() ; i++) {
+            if(message.charAt(i) == ' ') {
+                if( i <= K - 3) {
+                    lastWhiteSpacePos = i;
+                }
             }
+        }
+        if(lastWhiteSpacePos != -1 ) {
+           return message.substring(0, lastWhiteSpacePos) + " ...";
         }
         return message;
     }

@@ -13,6 +13,7 @@ public class Array2D {
             }
         }
         System.out.println(max(arr,6,6));
+        in.close();
     }
 
     static int max(int arr[][], int colLen, int rowLen)

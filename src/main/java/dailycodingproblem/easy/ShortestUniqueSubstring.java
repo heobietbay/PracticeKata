@@ -10,7 +10,7 @@ public class ShortestUniqueSubstring {
     }
 
     private static String solution(String inp) {
-        Map<String, Integer> stringMap = new HashMap();
+        Map<String, Integer> stringMap = new HashMap<>();
         for (int i = 0 ; i < inp.length()-1; i++)
         {
             for(int j = i + 1; j < inp.length(); j++)

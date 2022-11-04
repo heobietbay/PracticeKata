@@ -1,9 +1,5 @@
 package codility;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /*
 Prepare a notification of the given message which will be displayed on a mobile device.
 The message is made of words separated by single spaces.

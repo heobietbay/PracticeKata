@@ -84,5 +84,6 @@ public class Array1D {
             }
         }
         System.out.println(subArrCount);
+        sc.close();
     }
 }

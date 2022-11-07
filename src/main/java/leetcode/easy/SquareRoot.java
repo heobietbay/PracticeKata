@@ -23,11 +23,11 @@ package leetcode.easy;
  */
 public class SquareRoot {
     public static void main(String[] args) {
-        System.out.println(solution(4));
-        System.out.println(solution(9));
-        System.out.println(solution(16));
-        System.out.println(solution(24));
-        System.out.println(solution(36));
+//        System.out.println(solution(4));
+//        System.out.println(solution(9));
+//        System.out.println(solution(16));
+//        System.out.println(solution(24));
+        System.out.println(solution(2147483647));
     }
 
     /**
@@ -50,6 +50,8 @@ public class SquareRoot {
      * @return
      */
     static int solution (int x) {
+        if(x == 0)
+            return 0;
         if(x < 4)
             return 1;
         int count = 0;
@@ -60,7 +62,8 @@ public class SquareRoot {
             sub += 2;
             count++;
         }
-        if(count * count > x)
+        long multi = (long)count * count;
+        if(multi > x)
             count -= 1;
         return count;
     }

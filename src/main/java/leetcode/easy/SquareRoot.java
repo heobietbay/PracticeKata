@@ -67,4 +67,19 @@ public class SquareRoot {
             count -= 1;
         return count;
     }
+    static int solutionBinarySearch (int x) {
+        if(x == 0)
+            return 0;
+        int left = 1;
+        int right = x;
+        while(left < right - 1){
+            int mid = left + (right - left)/2;
+            if(x / mid >= mid) left = mid;
+            else right = mid - 1;
+        }
+
+        // post-processing
+        if(x / right >= right) return right;
+        return left;
+    }
 }

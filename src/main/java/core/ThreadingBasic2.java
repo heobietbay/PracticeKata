@@ -21,8 +21,7 @@ public class ThreadingBasic2 implements  Runnable {
             }
             System.out.println("Count is: " + count);
         }).start();
-
-        Thread.sleep(2000);
+        Thread.sleep(100);
         System.out.println("Setting done to true");
         done = true;
     }

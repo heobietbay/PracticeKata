@@ -20,9 +20,9 @@ package codility;
 public class PhoneNumber {
 
     public static void main(String[] args) {
-        String inp = readInput(args);
-        String formattedPhoneNumber = solution(inp);
-        System.out.println(formattedPhoneNumber);
+        System.out.println(solution("0 - 22 1985--324"));
+        System.out.println(solution("555372654"));
+        System.out.println(solution("00-44 48 5555 8361"));
     }
 
     private static String solution(String inp) {
@@ -37,16 +37,24 @@ public class PhoneNumber {
         //    change blockSize if needed
         while (len > 0)
         {
-            if(blockSize > len) {
-                formattedNumSb.delete(start - blockSize - 1,start); // 1 is for the dash
-                len += blockSize;
-                start -= blockSize;
-                blockSize = SUM_BLOCK_SIZE - blockSize;
-            }
             formattedNumSb.append(digitChars, start,  blockSize);
-            start += blockSize;
             formattedNumSb.append("-");
+            start += blockSize;
             len -= blockSize;
+            if(blockSize > len && len != 0) {
+                int temp = blockSize;
+                blockSize = SUM_BLOCK_SIZE - blockSize;
+                if(blockSize > len) {
+                    // revert process
+                    // delete `-` of line 41
+                    formattedNumSb.deleteCharAt(formattedNumSb.length() - 1);
+
+                    // delete last temp char
+                    formattedNumSb.delete(formattedNumSb.length() - temp, formattedNumSb.length());
+                    start = start - temp;
+                    len += temp;
+                }
+            }
         }
         formattedNumSb.deleteCharAt(formattedNumSb.length()-1); // delete the dash
         return formattedNumSb.toString();

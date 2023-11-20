@@ -18,10 +18,12 @@ public class ThreadingBasic2 implements  Runnable {
             while(!done)
             {
                 count++;
+                System.out.println("...");
             }
             System.out.println("Count is: " + count);
         }).start();
-        Thread.sleep(100);
+        System.out.println(Thread.currentThread().getName() + " about to sleep");
+        Thread.sleep(1000);
         System.out.println("Setting done to true");
         done = true;
     }

@@ -42,6 +42,7 @@ public class ThreadDeadlock {
         public void do2() throws InterruptedException {
             synchronized (key2) {
                 System.out.println("Holding key 2.....");
+                Thread.sleep(1);
                 synchronized (key1) {
                     System.out.println("Do 2 done....");
                 }

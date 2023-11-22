@@ -1,4 +1,4 @@
-package core;
+package core.threading;
 
 public class ThreadDeadlock {
     public static void main(String[] args){

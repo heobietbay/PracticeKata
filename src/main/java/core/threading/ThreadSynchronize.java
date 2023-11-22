@@ -16,13 +16,7 @@ public class ThreadSynchronize {
 
         th1.start();
         th2.start();
-
-        th1.join();
-
         th3.start();
-        th3.join();
-
-        th2.join();
     }
 
     static class CounterSync {

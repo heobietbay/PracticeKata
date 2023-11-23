@@ -1,22 +1,58 @@
 package core.map;
 
-import jdk.internal.util.xml.impl.Pair;
-
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class CustomMap<K, V> {
+
+    public static void main(String[] args) {
+        CustomMap<Pojo, Pojo> testMap = new CustomMap<>();
+
+        Pojo p1 = new Pojo("Khoa", 1);
+        Pojo p2 = new Pojo("AAA", 2);
+
+        testMap.put(p1, p1);
+        testMap.put(p2, p2);
+
+        System.out.println(testMap.get(p1).toDebugString());
+    }
 
     private StorageItem<K,V>[] storage;
     void put(K key, V value) {
         int hash = key.hashCode();
         int idx = hash % storage.length;
         if(storage[idx] == null) {
-            storage[idx] = new StorageItem<>(new StorageKey<K>(key), value);
+            storage[idx] = new StorageItem<>(key, value);
         } else {
-
+            StorageItem<K,V> temp = storage[idx];
+            if(temp.storageKey.equals(key)) {
+                temp.value = value;
+            } else {
+                while (temp.next != null) {
+                    if(temp.next.storageKey.equals(key)) {
+                        temp.next.value = value;
+                        break;
+                    }
+                    temp = temp.next;
+                }
+                if(temp.next == null) {
+                    temp.next = new StorageItem<>(key, value);
+                }
+            }
         }
     }
     V get(K key) {
+        int hash = key.hashCode();
+        int idx = hash % storage.length;
+        StorageItem<K,V> temp = storage[idx];
+        if(temp != null) {
+            while (temp != null) {
+                if(temp.storageKey.equals(key)) {
+                    return temp.value;
+                }
+                temp = temp.next;
+            }
+        }
         return null;
     }
 
@@ -25,29 +61,44 @@ public class CustomMap<K, V> {
     }
 
     class StorageItem<K,V> {
-        private StorageKey<K> storageKey;
-        private V value;
+        K storageKey;
+        V value;
 
-        public StorageItem(StorageKey<K> storageKey, V value) {
+        StorageItem<K,V> next;
+
+        public StorageItem(K storageKey, V value) {
             this.storageKey = storageKey;
             this.value = value;
         }
     }
 
-    class StorageKey<K> {
-        private LinkedList<K> keys;
+    static class Pojo {
+        String name;
+        Integer id;
 
-        public StorageKey() {
-            this.keys = new LinkedList<>();
+        public Pojo(String name, Integer id) {
+            this.name = name;
+            this.id = id;
         }
 
-        public StorageKey(K key) {
-            this.keys = new LinkedList<>();
-            addKey(key);
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pojo pojo = (Pojo) o;
+            return Objects.equals(name, pojo.name) && Objects.equals(id, pojo.id);
         }
 
-        public boolean addKey(K key) {
-            return keys.add(key);
+        @Override
+        public int hashCode() {
+            return 31;
+        }
+
+        public String toDebugString() {
+            return "Pojo{" +
+                    "name='" + name + '\'' +
+                    ", id=" + id +
+                    '}';
         }
     }
 }

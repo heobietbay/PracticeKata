@@ -6,20 +6,22 @@ import java.util.Objects;
 public class CustomMap<K, V> {
 
     public static void main(String[] args) {
-        CustomMap<Pojo, Pojo> testMap = new CustomMap<>();
+        CustomMap<Integer, Pojo> testMap = new CustomMap<>();
 
         Pojo p1 = new Pojo("Khoa", 1);
         Pojo p2 = new Pojo("AAA", 2);
+        Pojo p3 = new Pojo("Khoa1", 1);
 
-        testMap.put(p1, p1);
-        testMap.put(p2, p2);
+        testMap.put(p1.id, p1);
+        testMap.put(p2.id, p2);
+        testMap.put(p3.id, p3);
 
-        System.out.println(testMap.get(p1).toDebugString());
+        System.out.println(testMap.get(1).toDebugString());
     }
 
     private StorageItem<K,V>[] storage;
     void put(K key, V value) {
-        int hash = key.hashCode();
+        int hash = Math.abs(key.hashCode());
         int idx = hash % storage.length;
         if(storage[idx] == null) {
             storage[idx] = new StorageItem<>(key, value);
@@ -42,7 +44,7 @@ public class CustomMap<K, V> {
         }
     }
     V get(K key) {
-        int hash = key.hashCode();
+        int hash = Math.abs(key.hashCode());
         int idx = hash % storage.length;
         StorageItem<K,V> temp = storage[idx];
         if(temp != null) {
@@ -91,7 +93,7 @@ public class CustomMap<K, V> {
 
         @Override
         public int hashCode() {
-            return 31;
+            return Objects.hash(name, id);
         }
 
         public String toDebugString() {
